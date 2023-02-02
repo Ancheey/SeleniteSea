@@ -39,7 +39,8 @@ public class Main {
                 )
         );
 
-        engine.setProgram(program);
-        engine.start();
+        //engine.setProgram(program);
+        //engine.start();
+        MainWindow window = new MainWindow();
     }
 }
