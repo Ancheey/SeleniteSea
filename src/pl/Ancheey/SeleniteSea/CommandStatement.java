@@ -4,7 +4,7 @@ import java.util.*;
 
 public class CommandStatement extends Command implements ICommandContainer {
     private final List<Command> commands;
-
+    public String name = "";
     public CommandStatement(){
         this.commands = new ArrayList<>();
     };

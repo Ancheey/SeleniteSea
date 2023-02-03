@@ -23,30 +23,46 @@ public class EditorItem extends JPanel {
 
         //Create dataContainer
         dataContainer = new JPanel();
-        dataContainer.setLayout(new GridLayout(1,4));
+        dataContainer.setLayout(new GridLayout(2,1));
         dataContainer.setOpaque(false);
+
+        JPanel textPanel = new JPanel();
+        textPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        textPanel.setOpaque(false);
 
         itemName = new JLabel("Command");
         itemName.setForeground(new Color(210,210,210));
         itemName.setFont(new Font("JetBrains Mono", Font.BOLD, 14));
-        dataContainer.add(itemName);
+        itemName.setPreferredSize(new Dimension(200,30));
+        textPanel.add(itemName);
 
         itemDescription = new JLabel("Description");
         itemDescription.setForeground(new Color(210,210,210));
         itemDescription.setFont(new Font("JetBrains Mono", Font.PLAIN, 10));
-        dataContainer.add(itemDescription);
+        textPanel.add(itemDescription);
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        buttonPanel.setOpaque(false);
 
         itemEdit = new JButton("Edit");
+        itemEdit.setFont(new Font("JetBrains Mono", Font.PLAIN, 8));
         itemEdit.setForeground(new Color(210,210,210));
         itemEdit.setBackground(new Color(45,50,65));
-        dataContainer.add(itemEdit);
+        itemEdit.setPreferredSize(new Dimension(60,20));
+        buttonPanel.add(itemEdit);
 
         //GridBagConstraints itemDeleteConstraints = new GridBagConstraints();
         //itemDeleteConstraints.anchor = GridBagConstraints.FIRST_LINE_END;
         itemDelete = new JButton("Delete");
+        itemDelete.setFont(new Font("JetBrains Mono", Font.PLAIN, 8));
         itemDelete.setForeground(new Color(210,210,210));
         itemDelete.setBackground(new Color(150,20,20));
-        dataContainer.add(itemDelete);
+        itemDelete.setPreferredSize(new Dimension(60,20));
+        buttonPanel.add(itemDelete);
+
+        dataContainer.add(textPanel);
+        dataContainer.add(buttonPanel);
 
         itemDelete.addActionListener((e) ->{
            if(boundCommand instanceof CommandStatement && !((CommandStatement) boundCommand).getCommands().isEmpty()) {

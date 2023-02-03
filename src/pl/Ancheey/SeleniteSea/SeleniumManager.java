@@ -6,16 +6,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SeleniumManager extends Thread {
+
+    public static String CHROMEDRIVER = "D:\\Java Projects\\SeleniteSea\\chromedriver.exe";
+    public boolean haltAfterAction = false;
+    private static SeleniumManager instance;
     private SeleniumEngine engine;
     private final Map<String,Integer> vars = new HashMap<>();
     private CommandStatement program;
 
-    public SeleniumManager(CommandStatement program, String chromeDriver){
-        this.setProgram(program);
-        System.setProperty("webdriver.chrome.driver", chromeDriver);
+    public static SeleniumManager I(){
+        if(instance == null){
+            instance = new SeleniumManager();
+        }
+        return instance;
     }
-    public SeleniumManager(String chromeDriver){
-        System.setProperty("webdriver.chrome.driver", chromeDriver);
+    private SeleniumManager(){
+        System.setProperty("webdriver.chrome.driver", CHROMEDRIVER);
     }
     public void run(){
         engine = new SeleniumEngine();

@@ -56,7 +56,7 @@
               <color color="-15131096"/>
             </border>
             <children>
-              <grid id="ec534" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="ec534" binding="statementsPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints/>
                 <properties>
@@ -77,13 +77,13 @@
               <text value="Statements"/>
             </properties>
           </component>
-          <component id="21689" class="javax.swing.JLabel">
+          <component id="21689" class="javax.swing.JLabel" binding="statementNameLabel">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="7" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <foreground color="-2960686"/>
-              <text value="Main"/>
+              <text value=""/>
             </properties>
           </component>
           <component id="8e6b6" class="javax.swing.JLabel">
@@ -166,7 +166,7 @@
           </grid>
         </children>
       </grid>
-      <grid id="46412" layout-manager="GridLayoutManager" row-count="1" column-count="10" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="46412" layout-manager="GridLayoutManager" row-count="1" column-count="9" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="1" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
@@ -236,16 +236,6 @@
               <text value="Run"/>
             </properties>
           </component>
-          <component id="272be" class="javax.swing.JButton" binding="stopButton" default-binding="true">
-            <constraints>
-              <grid row="0" column="8" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <background color="-13815231"/>
-              <foreground color="-2960686"/>
-              <text value="Stop"/>
-            </properties>
-          </component>
           <hspacer id="c1f55">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -253,7 +243,7 @@
           </hspacer>
           <hspacer id="35aca">
             <constraints>
-              <grid row="0" column="9" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="8" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
           </hspacer>
         </children>
