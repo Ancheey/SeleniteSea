@@ -17,5 +17,8 @@ public class CommandStatementWhile extends CommandStatement{
             super.execute(engine);
         }
     }
+    public String getDescription() {
+        return "Looping statement";
+    }
 
 }

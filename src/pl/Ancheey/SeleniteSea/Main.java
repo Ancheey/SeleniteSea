@@ -4,12 +4,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Main {
+
+    static SeleniumManager engine;
+    static CommandStatement program;
     public static void main(String[] args) {
 
-        SeleniumManager engine = new SeleniumManager("D:\\Java Projects\\SeleniteSea\\chromedriver.exe");
+        engine = new SeleniumManager("D:\\Java Projects\\SeleniteSea\\chromedriver.exe");
 
 
-        CommandStatement program = new CommandStatement(
+        program = new CommandStatement(
                 Arrays.asList(
                 new CommandSleep(1000),
                 new CommandOpen("https://google.pl"),
@@ -22,12 +25,13 @@ public class Main {
                         new CommandVarSet("test", 0),
                         new CommandStatementWhile(new BooleanStatementDoubleVar(new EngineVarHandle(engine, "test"), BooleanStatement.DoubleVar.IS_LESS_THAN, 10),
                                 List.of(
-                                        new CommandStatementIfElse(new BooleanStatementDoubleVar(new EngineVarHandle(engine, "test"), BooleanStatement.DoubleVar.IS_DIVISIBLE_BY, 2),
+                                        new CommandStatementIf(new BooleanStatementDoubleVar(new EngineVarHandle(engine, "test"), BooleanStatement.DoubleVar.IS_DIVISIBLE_BY, 2),
                                                 Arrays.asList(
                                                         new CommandOpen("https://wykop.pl"),
                                                         new CommandSleep(1000)
 
-                                                ),
+                                                )),
+                                        new CommandStatementIf(new BooleanStatementDoubleVar(new EngineVarHandle(engine, "test"), BooleanStatement.DoubleVar.IS_NOT_DIVISIBLE_BY, 2),
                                                 Arrays.asList(
                                                         new CommandOpen("https://reddit.com"),
                                                         new CommandSleep(1000)

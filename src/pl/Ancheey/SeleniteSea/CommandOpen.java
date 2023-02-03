@@ -11,4 +11,9 @@ public class CommandOpen extends Command{
     public void execute(SeleniumManager engine) {
         engine.getDriver().get(url);
     }
+
+    @Override
+    public String getDescription() {
+        return "Opens " + url;
+    }
 }

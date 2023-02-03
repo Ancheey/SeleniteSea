@@ -15,4 +15,9 @@ public class CommandSleep extends Command{
             //No need dealing with it
         }
     }
+
+    @Override
+    public String getDescription() {
+        return "Waits for "+ interval + " milliseconds";
+    }
 }

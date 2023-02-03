@@ -60,4 +60,15 @@ public class CommandStatementAwait extends CommandStatement{
         }
     }
 
+    @Override
+    public String getDescription() {
+        int DEFAULT_TIMEOUT = 1500;
+        int timeout = this.timeout == 0 ? DEFAULT_TIMEOUT : this.timeout;
+
+        int DEFAULT_INTERVAL = 100;
+        int interval = this.interval == 0 ? DEFAULT_INTERVAL : this.interval;
+
+        String existance = statement.statement.toString();
+        return "Statement Awaiting for " + statement.xPath + " to " + existance + " for " + timeout + " milliseconds with " + interval + " intervals";
+    }
 }

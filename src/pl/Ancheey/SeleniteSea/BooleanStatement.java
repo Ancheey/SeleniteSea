@@ -24,6 +24,7 @@ public abstract class BooleanStatement {
         IS_MORE_THAN,
         IS_LESS_OR_EQUAL_THAN,
         IS_MORE_OR_EQUAL_THAN,
-        IS_DIVISIBLE_BY
+        IS_DIVISIBLE_BY,
+        IS_NOT_DIVISIBLE_BY
     }
 }

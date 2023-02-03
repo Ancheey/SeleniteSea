@@ -11,4 +11,9 @@ public class CommandActionClick extends CommandAction{
     public void execute(SeleniumManager engine) {
         engine.getDriver().findElement(By.xpath(xPath)).click();
     }
+
+    @Override
+    public String getDescription() {
+        return "Simulates a click on an item with an xPath: "+ xPath;
+    }
 }

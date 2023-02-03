@@ -3,12 +3,14 @@
   <grid id="27dc6" binding="MainPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="701" height="400"/>
+      <xy x="20" y="20" width="711" height="400"/>
     </constraints>
     <properties>
       <background color="-15131096"/>
     </properties>
-    <border type="none"/>
+    <border type="empty">
+      <size top="5" left="5" bottom="5" right="5"/>
+    </border>
     <children>
       <grid id="30ff0" layout-manager="GridLayoutManager" row-count="2" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
@@ -33,29 +35,6 @@
             </border>
             <children>
               <grid id="8473" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                <margin top="0" left="0" bottom="0" right="0"/>
-                <constraints/>
-                <properties>
-                  <background color="-13815231"/>
-                </properties>
-                <border type="none"/>
-                <children/>
-              </grid>
-            </children>
-          </scrollpane>
-          <scrollpane id="a835d">
-            <constraints>
-              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <background color="-13815231"/>
-              <foreground color="-4473925"/>
-            </properties>
-            <border type="line">
-              <color color="-15131096"/>
-            </border>
-            <children>
-              <grid id="afbec" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints/>
                 <properties>
@@ -117,6 +96,74 @@
               <text value="Functions"/>
             </properties>
           </component>
+          <grid id="47f6c" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <splitpane id="87f22">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                    <preferred-size width="200" height="200"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-13815231"/>
+                  <dividerLocation value="251"/>
+                  <dividerSize value="5"/>
+                  <orientation value="0"/>
+                </properties>
+                <border type="line">
+                  <color color="-14473166"/>
+                </border>
+                <children>
+                  <scrollpane id="1c1b7">
+                    <constraints>
+                      <splitpane position="right"/>
+                    </constraints>
+                    <properties>
+                      <background color="-14473166"/>
+                    </properties>
+                    <border type="none"/>
+                    <children>
+                      <grid id="5ca3a" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                        <margin top="0" left="0" bottom="0" right="0"/>
+                        <constraints/>
+                        <properties>
+                          <background color="-13815231"/>
+                        </properties>
+                        <border type="none"/>
+                        <children/>
+                      </grid>
+                    </children>
+                  </scrollpane>
+                  <scrollpane id="f6a41">
+                    <constraints>
+                      <splitpane position="left"/>
+                    </constraints>
+                    <properties>
+                      <background color="-14473166"/>
+                    </properties>
+                    <border type="none"/>
+                    <children>
+                      <grid id="c5739" binding="editorPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                        <margin top="0" left="0" bottom="0" right="0"/>
+                        <constraints/>
+                        <properties>
+                          <background color="-13815231"/>
+                        </properties>
+                        <border type="none"/>
+                        <children/>
+                      </grid>
+                    </children>
+                  </scrollpane>
+                </children>
+              </splitpane>
+            </children>
+          </grid>
         </children>
       </grid>
       <grid id="46412" layout-manager="GridLayoutManager" row-count="1" column-count="10" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">

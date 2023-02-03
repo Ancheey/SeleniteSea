@@ -15,4 +15,9 @@ public class CommandVarSet extends CommandVar{
     public void execute(SeleniumManager engine) {
         engine.setVar(varName, getValue());
     }
+
+    @Override
+    public String getDescription() {
+        return "Creates or overwrites variable \"" + varName + "\" by setting it to "+ getValue();
+    }
 }

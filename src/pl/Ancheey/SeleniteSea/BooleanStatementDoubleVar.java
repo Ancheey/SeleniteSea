@@ -54,6 +54,9 @@ public class BooleanStatementDoubleVar extends BooleanStatementDouble{
             case IS_DIVISIBLE_BY -> {
                 return val1 % val2 == 0;
             }
+            case IS_NOT_DIVISIBLE_BY -> {
+                return val1 % val2 != 0;
+            }
         }
         return false;
     }

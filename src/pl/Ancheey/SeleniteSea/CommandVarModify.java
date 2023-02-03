@@ -27,6 +27,11 @@ public class CommandVarModify extends  CommandVar {
         }
     }
 
+    @Override
+    public String getDescription() {
+        return "Modifies variable \"" + varName + "\" using the action " + action.toString() + " by " + getValue();
+    }
+
     public enum Action{
         INCREMENT,
         DECREMENT,

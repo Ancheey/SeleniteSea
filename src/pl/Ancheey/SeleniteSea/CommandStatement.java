@@ -16,24 +16,33 @@ public class CommandStatement extends Command implements ICommandContainer {
     @Override
     public void add(Command command) {
         commands.add(command);
+        command.setParent(this);
     }
     @Override
     public void add(int index, Command command) {
         commands.add(index, command);
+        command.setParent(this);
     }
 
     @Override
     public void add(Collection<Command> commands) {
         this.commands.addAll(commands);
+        for (Command c: commands) {
+            c.setParent(this);
+        }
     }
     @Override
     public void add(int index, Collection<Command> commands) {
         this.commands.addAll(index, commands);
+        for (Command c: commands) {
+            c.setParent(this);
+        }
     }
 
     @Override
     public void remove(Command command) {
         commands.remove(command);
+        command.setParent(null);
     }
 
     @Override
@@ -52,6 +61,9 @@ public class CommandStatement extends Command implements ICommandContainer {
 
     @Override
     public void clear() {
+        for (Command c: commands) {
+            c.setParent(null);
+        }
         commands.clear();
     }
 
@@ -66,5 +78,10 @@ public class CommandStatement extends Command implements ICommandContainer {
              ) {
             c.execute(engine);
         }
+    }
+
+    @Override
+    public String getDescription() {
+        return "Basic Statement";
     }
 }
