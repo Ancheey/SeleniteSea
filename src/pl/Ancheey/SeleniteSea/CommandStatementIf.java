@@ -12,9 +12,9 @@ public class CommandStatementIf extends CommandStatement{
         add(commands);
     }
     @Override
-    public void execute(SeleniumManager engine) {
+    public void execute() {
         if(statement.evaluate()) {
-            super.execute(engine);
+            super.execute();
         }
     }
 

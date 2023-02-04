@@ -3,8 +3,8 @@ package pl.Ancheey.SeleniteSea;
 import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.sql.Time;
+import java.time.LocalDateTime;
 
 public class MainWindow extends JFrame{
 
@@ -18,6 +18,8 @@ public class MainWindow extends JFrame{
     private JPanel editorPanel;
     private JPanel statementsPanel;
     private JLabel statementNameLabel;
+    private JTextArea consoleText;
+    private JScrollPane consoleScroll;
 
     private MainWindow(){
 
@@ -79,5 +81,12 @@ public class MainWindow extends JFrame{
         }
         statementsPanel.revalidate();
         statementsPanel.repaint();
+    }
+    public void addTextToConsole(String text){
+        if(!consoleText.getText().equals("")) {
+            consoleText.append("\n\n");
+        }
+        consoleText.append("[" + LocalDateTime.now().getHour() + ":" + LocalDateTime.now().getMinute() +":"+ LocalDateTime.now().getSecond() + "] " + text);
+        consoleScroll.getVerticalScrollBar().setValue(consoleScroll.getVerticalScrollBar().getMaximum());
     }
 }

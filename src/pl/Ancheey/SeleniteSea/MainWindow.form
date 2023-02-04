@@ -120,7 +120,7 @@
                   <color color="-14473166"/>
                 </border>
                 <children>
-                  <scrollpane id="1c1b7">
+                  <scrollpane id="1c1b7" binding="consoleScroll">
                     <constraints>
                       <splitpane position="right"/>
                     </constraints>
@@ -136,7 +136,19 @@
                           <background color="-13815231"/>
                         </properties>
                         <border type="none"/>
-                        <children/>
+                        <children>
+                          <component id="df8c6" class="javax.swing.JTextArea" binding="consoleText">
+                            <constraints>
+                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                                <preferred-size width="150" height="50"/>
+                              </grid>
+                            </constraints>
+                            <properties>
+                              <foreground color="-2960686"/>
+                              <opaque value="false"/>
+                            </properties>
+                          </component>
+                        </children>
                       </grid>
                     </children>
                   </scrollpane>

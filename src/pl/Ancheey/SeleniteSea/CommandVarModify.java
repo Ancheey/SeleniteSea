@@ -12,16 +12,16 @@ public class CommandVarModify extends  CommandVar {
     }
 
     @Override
-    public void execute(SeleniumManager engine) {
-        int var = engine.getVar(varName);
+    public void execute() {
+        int var = SeleniumManager.I().getVar(varName);
         switch (action){
 
-            case INCREMENT -> engine.setVar(varName, var + getValue());
-            case DECREMENT -> engine.setVar(varName, var - getValue());
-            case MULTIPLY -> engine.setVar(varName, var * getValue());
+            case INCREMENT -> SeleniumManager.I().setVar(varName, var + getValue());
+            case DECREMENT -> SeleniumManager.I().setVar(varName, var - getValue());
+            case MULTIPLY -> SeleniumManager.I().setVar(varName, var * getValue());
             case DIVIDE_BY -> {
                 if(getValue() != 0) {
-                    engine.setVar(varName, var / getValue());
+                    SeleniumManager.I().setVar(varName, var / getValue());
                 }
             }
         }

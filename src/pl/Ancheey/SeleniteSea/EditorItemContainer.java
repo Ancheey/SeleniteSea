@@ -25,9 +25,12 @@ public class EditorItemContainer extends EditorItem{
 
         //TEST
         addStatement.addActionListener(e -> {
-            statementContainer.add(new EditorItemContainer(new CommandStatement()));
-            statementContainer.revalidate();
-            statementContainer.repaint();
+            //statementContainer.add(new EditorItemContainer(new CommandStatement()));
+            //statementContainer.revalidate();
+            //statementContainer.repaint();
+
+            NewCommandDialog ncd = new NewCommandDialog();
+            ncd.setVisible(true);
         });
 
         add(statementContainer);

@@ -7,9 +7,9 @@ public class CommandSleep extends Command{
         this.interval = interval;
     }
     @Override
-    public void execute(SeleniumManager engine) {
+    public void execute() {
         try {
-            engine.sleep(interval);
+            SeleniumManager.I().sleep(interval);
         }
         catch(Exception ignored){
             //No need dealing with it

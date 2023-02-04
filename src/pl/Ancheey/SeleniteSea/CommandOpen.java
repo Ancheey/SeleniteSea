@@ -8,8 +8,8 @@ public class CommandOpen extends Command{
         this.url = url;
     }
     @Override
-    public void execute(SeleniumManager engine) {
-        engine.getDriver().get(url);
+    public void execute() {
+        SeleniumManager.I().getDriver().get(url);
     }
 
     @Override

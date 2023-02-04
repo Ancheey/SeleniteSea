@@ -1,15 +1,18 @@
 package pl.Ancheey.SeleniteSea;
 
-public abstract class BooleanStatement {
+public interface BooleanStatement {
+
     /**
      * Used to evaluate the outcome at the moment of calling, not creation.
      */
 
-    abstract boolean evaluate();
+    boolean evaluate();
+
+    String toString();
     /**
      * Contains all actions possible within a bool statement with a single variable
      */
-    public enum SingleVar{
+    enum SingleVar{
         EXISTS,
         NOT_EXISTS
     }
@@ -17,7 +20,7 @@ public abstract class BooleanStatement {
     /**
      * Contains all actions possible within a bool statement with 2 variables
      */
-    public enum DoubleVar{
+    enum DoubleVar{
         EQUALS,
         NOT_EQUALS,
         IS_LESS_THAN,

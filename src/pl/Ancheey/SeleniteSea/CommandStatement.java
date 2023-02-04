@@ -73,10 +73,10 @@ public class CommandStatement extends Command implements ICommandContainer {
     }
 
     @Override
-    public void execute(SeleniumManager engine) {
+    public void execute() {
         for (Command c: commands
              ) {
-            c.execute(engine);
+            c.execute();
         }
     }
 

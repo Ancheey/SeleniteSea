@@ -12,8 +12,8 @@ public class CommandVarSet extends CommandVar{
     }
 
     @Override
-    public void execute(SeleniumManager engine) {
-        engine.setVar(varName, getValue());
+    public void execute() {
+        SeleniumManager.I().setVar(varName, getValue());
     }
 
     @Override

@@ -8,8 +8,8 @@ public class CommandActionClick extends CommandAction{
     }
 
     @Override
-    public void execute(SeleniumManager engine) {
-        engine.getDriver().findElement(By.xpath(xPath)).click();
+    public void execute() {
+        SeleniumManager.I().getDriver().findElement(By.xpath(xPath)).click();
     }
 
     @Override

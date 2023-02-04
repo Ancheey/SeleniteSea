@@ -8,14 +8,14 @@ import java.util.Map;
 public class SeleniumManager extends Thread {
 
     public static String CHROMEDRIVER = "D:\\Java Projects\\SeleniteSea\\chromedriver.exe";
-    public boolean haltAfterAction = false;
+    public boolean used = false;
     private static SeleniumManager instance;
     private SeleniumEngine engine;
     private final Map<String,Integer> vars = new HashMap<>();
     private CommandStatement program;
 
     public static SeleniumManager I(){
-        if(instance == null){
+        if(instance == null || instance.used){
             instance = new SeleniumManager();
         }
         return instance;
@@ -24,8 +24,14 @@ public class SeleniumManager extends Thread {
         System.setProperty("webdriver.chrome.driver", CHROMEDRIVER);
     }
     public void run(){
+        try{
         engine = new SeleniumEngine();
-        getProgram().execute(this);
+        getProgram().execute();
+        }
+        catch(Exception e){
+            MainWindow.I().addTextToConsole(e.getClass().getSimpleName() + ": " +e.getMessage());
+        }
+        used = true;
     }
     public ChromeDriver getDriver() {
         return engine.getDriver();
