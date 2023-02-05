@@ -7,11 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class EditorItemContainer extends EditorItem{
-    private final JPanel statementContainer;
 
     public EditorItemContainer(CommandStatement statement){
         super(statement);
-        statementContainer = new JPanel();
+        JPanel statementContainer = new JPanel();
         //statementContainer.setLayout(new BoxLayout(statementContainer, BoxLayout.Y_AXIS));
         statementContainer.setLayout(new BoxLayout(statementContainer, BoxLayout.PAGE_AXIS));
         statementContainer.setOpaque(false);
@@ -23,13 +22,8 @@ public class EditorItemContainer extends EditorItem{
 
         statementContainer.add(addStatement);
 
-        //TEST
         addStatement.addActionListener(e -> {
-            //statementContainer.add(new EditorItemContainer(new CommandStatement()));
-            //statementContainer.revalidate();
-            //statementContainer.repaint();
-
-            NewCommandDialog ncd = new NewCommandDialog();
+            NewCommandDialog ncd = new NewCommandDialog(statement);
             ncd.setVisible(true);
         });
 

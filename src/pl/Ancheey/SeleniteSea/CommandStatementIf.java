@@ -7,7 +7,8 @@ public class CommandStatementIf extends CommandStatement{
     public CommandStatementIf(BooleanStatement statement){
         this.statement = statement;
     }
-    public CommandStatementIf(BooleanStatement statement, Collection<Command> commands){
+    @Deprecated
+    private CommandStatementIf(BooleanStatement statement, Collection<Command> commands){
         this.statement = statement;
         add(commands);
     }

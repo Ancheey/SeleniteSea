@@ -2,7 +2,6 @@ package pl.Ancheey.SeleniteSea;
 
 public class CommandSleep extends Command{
     private final int interval;
-    EngineVarHandle handle;
     public CommandSleep(int interval){
         this.interval = interval;
     }

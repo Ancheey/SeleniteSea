@@ -7,7 +7,8 @@ public class CommandStatementWhile extends CommandStatement{
     public CommandStatementWhile(BooleanStatement statement){
         this.statement = statement;
     }
-    public CommandStatementWhile(BooleanStatement statement, Collection<Command> commands){
+    @Deprecated
+    private CommandStatementWhile(BooleanStatement statement, Collection<Command> commands){
         this.statement = statement;
         add(commands);
     }

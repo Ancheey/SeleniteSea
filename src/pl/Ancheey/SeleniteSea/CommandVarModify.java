@@ -2,12 +2,8 @@ package pl.Ancheey.SeleniteSea;
 
 public class CommandVarModify extends  CommandVar {
     Action action;
-    public CommandVarModify(String varName, int value, Action action) {
+    public CommandVarModify(String varName, String value, Action action) {
         super(varName, value);
-        this.action = action;
-    }
-    public CommandVarModify(String varName, EngineVarHandle handle, Action action) {
-        super(varName, handle);
         this.action = action;
     }
 
@@ -29,7 +25,7 @@ public class CommandVarModify extends  CommandVar {
 
     @Override
     public String getDescription() {
-        return "Modifies variable \"" + varName + "\" using the action " + action.toString() + " by " + getValue();
+        return "Modifies variable \"" + varName + "\" using the action " + action.toString() + " by " + value;
     }
 
     public enum Action{

@@ -3,12 +3,8 @@ package pl.Ancheey.SeleniteSea;
 public class CommandVarSet extends CommandVar{
 
 
-    public CommandVarSet(String varName, int value) {
+    public CommandVarSet(String varName, String value) {
         super(varName, value);
-    }
-
-    public CommandVarSet(String varName, EngineVarHandle handle) {
-        super(varName, handle);
     }
 
     @Override

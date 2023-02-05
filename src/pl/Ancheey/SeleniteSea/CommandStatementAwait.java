@@ -6,29 +6,35 @@ public class CommandStatementAwait extends CommandStatement{
     BooleanStatement statement;
     int timeout;
     int interval;
-
-    public CommandStatementAwait(BooleanStatement statement){
+    int DEFAULT_TIMEOUT = 1500;
+    int DEFAULT_INTERVAL = 100;
+    @Deprecated
+    private CommandStatementAwait(BooleanStatement statement){
         this.statement = statement;
     }
-    public CommandStatementAwait(BooleanStatement statement, int timeout){
+    @Deprecated
+    private CommandStatementAwait(BooleanStatement statement, int timeout){
         this.statement = statement;
         this.timeout = timeout;
     }
     public CommandStatementAwait(BooleanStatement statement, int timeout, int interval){
         this.statement = statement;
-        this.timeout = timeout;
-        this.interval = interval;
+        this.timeout = timeout == 0 ? DEFAULT_TIMEOUT : timeout;
+        this.interval = interval == 0 ? DEFAULT_INTERVAL : interval;
     }
-    public CommandStatementAwait(BooleanStatement statement, Collection<Command> commands){
+    @Deprecated
+    private CommandStatementAwait(BooleanStatement statement, Collection<Command> commands){
         this.statement = statement;
         add(commands);
     }
-    public CommandStatementAwait(BooleanStatement statement, int timeout, Collection<Command> commands){
+    @Deprecated
+    private CommandStatementAwait(BooleanStatement statement, int timeout, Collection<Command> commands){
         this.statement = statement;
         this.timeout = timeout;
         add(commands);
     }
-    public CommandStatementAwait(BooleanStatement statement, int timeout, int interval, Collection<Command> commands){
+    @Deprecated
+    private CommandStatementAwait(BooleanStatement statement, int timeout, int interval, Collection<Command> commands){
         this.statement = statement;
         this.timeout = timeout;
         this.interval = interval;
@@ -36,10 +42,10 @@ public class CommandStatementAwait extends CommandStatement{
     }
     @Override
     public void execute() {
-        int DEFAULT_TIMEOUT = 1500;
+
         int timeout = this.timeout == 0 ? DEFAULT_TIMEOUT : this.timeout;
 
-        int DEFAULT_INTERVAL = 100;
+
         int interval = this.interval == 0 ? DEFAULT_INTERVAL : this.interval;
         try {
             while (timeout > 0 && !statement.evaluate()) {
