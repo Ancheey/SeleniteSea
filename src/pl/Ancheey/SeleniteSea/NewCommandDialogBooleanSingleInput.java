@@ -20,15 +20,18 @@ public class NewCommandDialogBooleanSingleInput extends BooleanDialogInput {
         JLabel nameLabel = new JLabel("If");
         nameLabel.setForeground(new Color(210,210,210));
 
+
         valueField = new JTextField();
         valueField.setOpaque(false);
         valueField.setForeground(new Color(210,210,210));
+        valueField.setPreferredSize(new Dimension(50,30));
 
         booleanCombo = new JComboBox<>(BooleanStatement.SingleVar.values());
         booleanCombo.setSelectedIndex(0);
 
         add(nameLabel);
         add(valueField);
+        add(booleanCombo);
     }
 
     @Override

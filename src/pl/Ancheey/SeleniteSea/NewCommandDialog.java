@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class NewCommandDialog extends JDialog {
@@ -16,15 +17,29 @@ public class NewCommandDialog extends JDialog {
     private JComboBox<Class<? extends Command>> typeBox;
 
     private List<NewCommandDialogInput> inputs = new ArrayList<>();
+
+    private int savedOffsetFromBottom = 0;
+    private Command edited;
     private JPanel varPanel;
 
     public NewCommandDialog(CommandStatement executor) {
+        this.executor = executor;
+
+        build();
+    }
+    public NewCommandDialog(Command edited) {
+        this.edited = edited;
+        this.executor = (CommandStatement) edited.getParent();
+        savedOffsetFromBottom = executor.getCommands().size() - 2 - Arrays.asList(executor.getCommands()).indexOf(edited);
+
+        build();
+    }
+
+    private void build(){
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
         contentPane.setBackground(new Color(45,50,65));
-
-        this.executor = executor;
 
         buttonOK.addActionListener(e -> onOK());
 
@@ -93,7 +108,27 @@ public class NewCommandDialog extends JDialog {
             for (NewCommandDialogInput c: inputs) {
                 params.add(c.getValue());
             }
-            executor.add((Command) constructor.newInstance(params.toArray()));
+            Command c = (Command) constructor.newInstance(params.toArray());
+
+            if(savedOffsetFromBottom == 0) {
+                executor.add(c);
+            }
+            else{
+                executor.add(executor.getCommands().size() - savedOffsetFromBottom,c);
+            }
+            if(edited != null){
+                executor.remove(edited);
+            }
+            try {
+                CommandStatement st = (CommandStatement) c;
+                st.add(((CommandStatement)edited).getCommands());
+            }
+            catch(Exception e){
+                MainWindow.I().addTextToConsole(e+ ":  " + e.getMessage());
+                MainWindow.I().addTextToConsole("Command Statement was changed to a simple Command, loosing all its contents");
+            }
+
+
             MainWindow.I().loadStatement(EditorStatementManager.I().getCurrentlySelected());
         }
         catch (Exception e){

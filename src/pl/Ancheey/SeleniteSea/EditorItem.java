@@ -68,6 +68,9 @@ public class EditorItem extends JPanel {
            if(boundCommand instanceof CommandStatement && !((CommandStatement) boundCommand).getCommands().isEmpty()) {
                return;
            }
+            if(boundCommand.getParent() == null){
+                return;
+            }
 
             ((CommandStatement)boundCommand.getParent()).remove(boundCommand);
 
@@ -75,6 +78,14 @@ public class EditorItem extends JPanel {
             parent.remove(this);
             parent.revalidate();
             parent.repaint();
+        });
+        itemEdit.addActionListener((e) ->{
+            if(boundCommand.getParent() == null){
+                return;
+            }
+
+            NewCommandDialog ncd = new NewCommandDialog(boundCommand);
+            ncd.setVisible(true);
         });
 
         add(dataContainer,BorderLayout.PAGE_START);

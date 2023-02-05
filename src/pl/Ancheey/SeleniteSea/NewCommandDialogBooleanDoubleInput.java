@@ -23,6 +23,7 @@ public class NewCommandDialogBooleanDoubleInput extends BooleanDialogInput{
         valueField = new JTextField();
         valueField.setOpaque(false);
         valueField.setForeground(new Color(210,210,210));
+        valueField.setPreferredSize(new Dimension(50,30));
 
         booleanCombo = new JComboBox<>(BooleanStatement.DoubleVar.values());
         booleanCombo.setSelectedIndex(0);
@@ -30,9 +31,12 @@ public class NewCommandDialogBooleanDoubleInput extends BooleanDialogInput{
         value2Field = new JTextField();
         value2Field.setOpaque(false);
         value2Field.setForeground(new Color(210,210,210));
+        value2Field.setPreferredSize(new Dimension(50,30));
 
         add(nameLabel);
         add(valueField);
+        add(booleanCombo);
+        add(value2Field);
     }
 
     @Override

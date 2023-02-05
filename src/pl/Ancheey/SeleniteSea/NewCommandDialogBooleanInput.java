@@ -14,7 +14,7 @@ public class NewCommandDialogBooleanInput extends NewCommandDialogInput {
         JComboBox<String> typeCombo = new JComboBox<>();
         typeCombo.addItem("Single");
         typeCombo.addItem("Double");
-//TODO: Fix this crap
+
         typeCombo.addActionListener((e) -> {
             if (typeCombo.getSelectedIndex() == -1)
                 return;

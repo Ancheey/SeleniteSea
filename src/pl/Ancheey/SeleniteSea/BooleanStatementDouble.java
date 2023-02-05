@@ -17,11 +17,26 @@ public class BooleanStatementDouble implements BooleanStatement{
 
         //Finds out current variable if they exist
         //Changes strings to ints if possible
-        if (firstValue.getClass() == String.class && SeleniumManager.I().getVars().containsKey((String) firstValue)) {
-            val1 = SeleniumManager.I().getVar((String) firstValue);
+        if (firstValue.getClass() == String.class){
+            if(SeleniumManager.I().getVars().containsKey((String) firstValue)) {
+                val1 = SeleniumManager.I().getVar((String) firstValue);
+            }
+            else{
+                try{
+                    val1 = Integer.parseInt((String)val1);
+                }catch(Exception ignored){}
+            }
         }
-        if (secondValue.getClass() == String.class && SeleniumManager.I().getVars().containsKey((String) secondValue)) {
-            val2 = SeleniumManager.I().getVar((String) secondValue);
+        if (secondValue.getClass() == String.class){
+            if(SeleniumManager.I().getVars().containsKey((String) secondValue))
+            {
+                val2 = SeleniumManager.I().getVar((String) secondValue);
+            }
+            else{
+                try{
+                    val2 = Integer.parseInt((String)val2);
+                }catch(Exception ignored){}
+            }
         }
 
         //if items are of the same class, then compare. If not then see if equal or not, else return false;

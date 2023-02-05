@@ -21,6 +21,6 @@ public class CommandStatementIf extends CommandStatement{
 
     @Override
     public String getDescription() {
-        return "Statement that runs only if conditions are met.";
+        return "Statement that runs only if conditions are met: " + statement.toString();
     }
 }
