@@ -50,6 +50,26 @@ public class MainWindow extends JFrame{
             dialog.setVisible(true);
         });
 
+        saveButton.addActionListener((e)->{
+            try {
+                EditorStatementManager.I().saveStatements();
+            }
+            catch (Exception ex){
+                MainWindow.I().addTextToConsole(ex + ": " + ex.getMessage());
+                ex.printStackTrace();
+            }
+        });
+        loadButton.addActionListener((e)->{
+            try {
+                EditorStatementManager.I().loadStatements();
+            }
+            catch (Exception ex){
+                MainWindow.I().addTextToConsole(ex + ": " + ex.getMessage());
+                ex.printStackTrace();
+            }
+            loadStatementList();
+        });
+
 
         SwingUtilities.invokeLater(this::loadStatementList);
 

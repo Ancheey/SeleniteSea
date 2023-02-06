@@ -1,6 +1,8 @@
 package pl.Ancheey.SeleniteSea;
 
-public abstract class Command {
+import java.io.Serializable;
+
+public abstract class Command implements Serializable {
     public abstract void execute(); //REMOVE THE NEED FOR THIS, REPLACE WITH INSTANCE
     public abstract String getDescription();
 

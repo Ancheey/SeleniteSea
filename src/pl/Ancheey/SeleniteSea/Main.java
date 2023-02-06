@@ -6,7 +6,7 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-
+/*
         CommandStatementIf if1 = new CommandStatementIf(new BooleanStatementDouble("test", BooleanStatement.DoubleVar.IS_DIVISIBLE_BY, 2));
         if1.add( Arrays.asList(
                 new CommandOpen("https://wykop.pl"),
@@ -49,6 +49,7 @@ public class Main {
 
         EditorStatementManager.I().addStatement(program, "Main");
         EditorStatementManager.I().addStatement(new CommandStatement(), "Test2");
+        */
 
         //Class registration
         CommandRegistry.I().register(CommandActionClick.class);

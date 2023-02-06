@@ -27,6 +27,7 @@ public class SeleniumManager extends Thread {
         try{
         engine = new SeleniumEngine();
         getProgram().execute();
+            MainWindow.I().addTextToConsole( getProgram().name + " finished!");
         }
         catch(Exception e){
             MainWindow.I().addTextToConsole(e.getClass().getSimpleName() + ": " +e.getMessage());

@@ -118,14 +118,11 @@ public class NewCommandDialog extends JDialog {
             }
             if(edited != null){
                 executor.remove(edited);
-            }
-            try {
-                CommandStatement st = (CommandStatement) c;
-                st.add(((CommandStatement)edited).getCommands());
-            }
-            catch(Exception e){
-                MainWindow.I().addTextToConsole(e+ ":  " + e.getMessage());
-                MainWindow.I().addTextToConsole("Command Statement was changed to a simple Command, loosing all its contents");
+                try {
+                    CommandStatement st = (CommandStatement) c;
+                    st.add(((CommandStatement)edited).getCommands());
+                }
+                catch(Exception ignored){}//expected behavior
             }
 
 

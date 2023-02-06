@@ -1,6 +1,8 @@
 package pl.Ancheey.SeleniteSea;
 
-public interface BooleanStatement {
+import java.io.Serializable;
+
+public interface BooleanStatement extends Serializable {
 
     /**
      * Used to evaluate the outcome at the moment of calling, not creation.
