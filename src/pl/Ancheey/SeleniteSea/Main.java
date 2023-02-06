@@ -52,8 +52,8 @@ public class Main {
         EditorStatementManager.I().addStatement(new CommandStatement(), "Test2");
         */
         try {
-            String path = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getPath();
-            System.setProperty("webdriver.chrome.driver",path + "chromedriver.exe");
+            String path = new File("").getAbsolutePath();
+            System.setProperty("webdriver.chrome.driver",path + "\\chromedriver.exe");
         }
         catch(Exception e){
             e.printStackTrace();
