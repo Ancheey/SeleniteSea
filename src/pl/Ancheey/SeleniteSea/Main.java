@@ -1,5 +1,6 @@
 package pl.Ancheey.SeleniteSea;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -50,6 +51,14 @@ public class Main {
         EditorStatementManager.I().addStatement(program, "Main");
         EditorStatementManager.I().addStatement(new CommandStatement(), "Test2");
         */
+        try {
+            String path = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getPath();
+            System.setProperty("webdriver.chrome.driver",path + "chromedriver.exe");
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
 
         //Class registration
         CommandRegistry.I().register(CommandActionClick.class);

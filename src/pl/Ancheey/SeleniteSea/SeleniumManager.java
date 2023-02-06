@@ -2,12 +2,14 @@ package pl.Ancheey.SeleniteSea;
 
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.io.File;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class SeleniumManager extends Thread {
 
-    public static String CHROMEDRIVER = "D:\\Java Projects\\SeleniteSea\\chromedriver.exe";
+    public static String CHROMEDRIVER = "chromedriver.exe";
     public boolean used = false;
     private static SeleniumManager instance;
     private SeleniumEngine engine;
@@ -20,9 +22,7 @@ public class SeleniumManager extends Thread {
         }
         return instance;
     }
-    private SeleniumManager(){
-        System.setProperty("webdriver.chrome.driver", CHROMEDRIVER);
-    }
+    private SeleniumManager() {}
     public void run(){
         try{
         engine = new SeleniumEngine();
