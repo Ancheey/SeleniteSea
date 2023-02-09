@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * All of this just to pass a new name to the Statement manager
+ * SMH
+ */
 public class NewStatementDialog extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;

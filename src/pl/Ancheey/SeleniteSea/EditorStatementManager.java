@@ -20,6 +20,10 @@ public final class EditorStatementManager {
         statements = new ArrayList<>();
     }
 
+    /**
+     * Singleton declaration for a UI command statement item manager
+     * @return New or existing manager instance
+     */
     public static EditorStatementManager I(){
         if(instance == null){
             instance = new EditorStatementManager();
@@ -31,7 +35,11 @@ public final class EditorStatementManager {
         return statements;
     }
 
-    public Collection<JButton> generateButtons(MainWindow window){
+    /**
+     *Generates a set of buttons that correspond to statements and allow for changing the open one
+     * @return
+     */
+    public Collection<JButton> generateButtons(){
         List<JButton> list = new ArrayList<>();
         getStatements().forEach((value) ->{
             JButton button = new JButton(value.name);
@@ -39,16 +47,28 @@ public final class EditorStatementManager {
             button.setForeground(new Color(210,210,210));
             button.setPreferredSize(new Dimension(160,30));
             button.addActionListener((e)-> {
-                window.loadStatement(value);
+                MainWindow.I().loadStatement(value);
                 currentlySelected = value;
             });
             list.add(button);
         });
         return list;
     }
+
+    /**
+     * Removes a command statement from the list
+     * DOESN'T DELETE THE FILE. ONLY ALLOWS FOR CREATION OF A NEW STATEMENT WITH THE SAME NAME TO OVERWRITE THE OTHER ONE
+     * @param statement statement to remove from the list
+     */
     public void removeStatement(CommandStatement statement){
         statements.remove(statement);
     }
+
+    /**
+     * Adds a statement and allows it to have a name
+     * @param statement statement to add
+     * @param name displayed name to bind to the statement
+     */
     public void addStatement(CommandStatement statement, String name){
         for(CommandStatement cs : statements){
             if(cs.name.equals(name)){
@@ -59,6 +79,12 @@ public final class EditorStatementManager {
         statement.name = name;
         statements.add(statement);
     }
+
+    /**
+     * Saves statements to $dir\statements.
+     * Statements are saved as a .selenite file, but are just a serialized object able to be read by any program
+     * @throws IOException If something goes wrong with the output stream, this will be thrown
+     */
     public void saveStatements() throws IOException {
         FileOutputStream fos;
         ObjectOutputStream oos;
@@ -74,6 +100,10 @@ public final class EditorStatementManager {
         }
         MainWindow.I().addTextToConsole("Successfully saved all statements!");
     }
+
+    /**
+     * Loads statements saved in the &dir\statements folder to the manager
+     */
     public  void loadStatements(){
         File folder = new File("statements");
         FileInputStream fis;
@@ -94,6 +124,9 @@ public final class EditorStatementManager {
         }
     }
 
+    /**
+     * @return Currently selected statement
+     */
     public CommandStatement getCurrentlySelected() {
         return currentlySelected;
     }

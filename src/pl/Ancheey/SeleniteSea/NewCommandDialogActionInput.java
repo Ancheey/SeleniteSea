@@ -3,6 +3,9 @@ package pl.Ancheey.SeleniteSea;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Allows the creation of a panel that enables the selection of a math action for variables
+ */
 public class NewCommandDialogActionInput extends NewCommandDialogInput {
     JComboBox<CommandVarModify.Action> actionCombo;
     public NewCommandDialogActionInput() {

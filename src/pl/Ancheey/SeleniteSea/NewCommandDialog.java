@@ -69,13 +69,15 @@ public class NewCommandDialog extends JDialog {
             if(typeBox.getSelectedIndex() == -1)
                 return;
 
-            //Get the first constructor
+            //Get the first constructor of the class that is selected
             Constructor<?> constructor = ((Class<? extends Command>)typeBox.getSelectedItem()).getConstructors()[0];
             Object[] params = constructor.getParameterTypes();
             varPanel.removeAll();
             inputs.clear();
 
-            //for each param that is needed, add a boolean or a string input
+            //for each param that is needed, add a new input.
+            //THIS PART CAN BE EXTENDED
+            //NEEDS REMAKING SO THE IF ELSE IS REPLACED BY A MANAGER OF CLASS - INPUT PAIRS
             for (Object o: params) {
                 if(o == BooleanStatement.class){
                     inputs.add(new NewCommandDialogBooleanInput());
@@ -99,17 +101,32 @@ public class NewCommandDialog extends JDialog {
         pack();
     }
 
+    /**
+     * Oh boy.
+     * This part is an absolute clusterf*ck because it breaks every OOP rule in existence.
+     * It takes the class that is selected in the combo box, finds its constructor and tries to build a new instance of the object with the variables provided in inputs
+     * It technically should never break, but it doesn't make it less of a sticks-and-tape construction
+     */
     private void onOK() {
         if(typeBox.getSelectedIndex() == -1)
             return;
+
+        //Get the constructor of selected class
         Constructor<?> constructor = ((Class<? extends Command>)typeBox.getSelectedItem()).getConstructors()[0];
-        try {
+        try { //here the fun begins
+
+            //This one takes all values contained in the inputs and mashes them into a list. It doesn't know what type of variables these are thoguh
             List<Object> params = new ArrayList<>();
             for (NewCommandDialogInput c: inputs) {
                 params.add(c.getValue());
             }
+
+            //With all the mashed variables it creates a new instance
             Command c = (Command) constructor.newInstance(params.toArray());
 
+
+            //If the creation is a glorified edit of a command, it will try to put commands back inside the statement if it was one to begin with
+            //It also removes the old one and replaces it with a new command
             if(savedOffsetFromBottom == 0) {
                 executor.add(c);
             }
@@ -122,7 +139,7 @@ public class NewCommandDialog extends JDialog {
                     CommandStatement st = (CommandStatement) c;
                     st.add(((CommandStatement)edited).getCommands());
                 }
-                catch(Exception ignored){}//expected behavior
+                catch(Exception ignored){}//expected behavior, because sometimes the command is not a statement
             }
 
 
@@ -135,7 +152,6 @@ public class NewCommandDialog extends JDialog {
     }
 
     private void onCancel() {
-        // add your code here if necessary
         dispose();
     }
 

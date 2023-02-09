@@ -2,7 +2,9 @@ package pl.Ancheey.SeleniteSea;
 
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ * Allows for the creation of a panel that lets the user input a simple string to be processed later
+ */
 public class NewCommandDialogStringInput extends NewCommandDialogInput{
     private final JTextField valueField;
     public NewCommandDialogStringInput(String name){

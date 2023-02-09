@@ -12,10 +12,15 @@ public class SeleniumManager extends Thread {
     public static String CHROMEDRIVER = "chromedriver.exe";
     public boolean used = false;
     private static SeleniumManager instance;
-    private SeleniumEngine engine;
+    private ChromeDriver engine;
     private final Map<String,Integer> vars = new HashMap<>();
     private CommandStatement program;
 
+    /**
+     * Singleton Declaration for the Selenium Manager
+     * THE INSTANCE WILL BE DUMPED IF THE PROCESS HAS FINISHED
+     * @return Returns a new or currently active instance of Selenium Manager
+     */
     public static SeleniumManager I(){
         if(instance == null || instance.used){
             instance = new SeleniumManager();
@@ -23,19 +28,25 @@ public class SeleniumManager extends Thread {
         return instance;
     }
     private SeleniumManager() {}
+
+    /**
+     * Tries to create a new engine and executes the bound program on it.
+     */
     public void run(){
         try{
-        engine = new SeleniumEngine();
-        getProgram().execute();
+            engine = new ChromeDriver();
+            getProgram().execute();
             MainWindow.I().addTextToConsole( getProgram().name + " finished!");
         }
         catch(Exception e){
             MainWindow.I().addTextToConsole(e.getClass().getSimpleName() + ": " +e.getMessage());
+            e.printStackTrace();
         }
         used = true;
     }
+
     public ChromeDriver getDriver() {
-        return engine.getDriver();
+        return engine;
     }
     public Map<String,Integer> getVars() {
         return vars;

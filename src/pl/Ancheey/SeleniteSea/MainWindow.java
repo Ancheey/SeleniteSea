@@ -82,9 +82,17 @@ public class MainWindow extends JFrame{
     }
 
 
+    /**
+     * Clears the screen of the editor from all commands
+     */
     public void clearEditor(){
         editorPanel.removeAll();
     }
+
+    /**
+     * Builds a set of Editor Items on the editor pane based on the provided statement
+     * @param statement Command Statement to build of off
+     */
     public void loadStatement(CommandStatement statement){
         clearEditor();
         statementNameLabel.setText(statement.name);
@@ -93,15 +101,27 @@ public class MainWindow extends JFrame{
         editorPanel.repaint();
     }
 
+    /**
+     * Removes all statement buttons from the statement list
+     */
     public void clearStatements(){statementsPanel.removeAll();}
+
+    /**
+     * Loads buttons for statement on the statement list
+     */
     public void loadStatementList(){
         clearStatements();
-        for (JButton b: EditorStatementManager.I().generateButtons(this)) {
+        for (JButton b: EditorStatementManager.I().generateButtons()) {
             statementsPanel.add(b);
         }
         statementsPanel.revalidate();
         statementsPanel.repaint();
     }
+
+    /**
+     * Inserts a provided line of text on the debug console with a timestamp
+     * @param text string of text to be displayed
+     */
     public void addTextToConsole(String text){
         if(!consoleText.getText().equals("")) {
             consoleText.append("\n\n");

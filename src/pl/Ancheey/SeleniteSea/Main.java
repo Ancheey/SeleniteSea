@@ -1,56 +1,16 @@
 package pl.Ancheey.SeleniteSea;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.List;
 
 public class Main {
 
+    /**
+     * BEFORE YOU TRY TO RUN THIS PROGRAM MAKE SURE YOU HAVE A CHROMEDRIVER.EXE PLACED WITHIN THE SAME FOLDER AS THIS JAR
+     * IF NOT THEN ALL HELL IS UPON US
+     * @param args don't know, don't care
+     */
     public static void main(String[] args) {
-/*
-        CommandStatementIf if1 = new CommandStatementIf(new BooleanStatementDouble("test", BooleanStatement.DoubleVar.IS_DIVISIBLE_BY, 2));
-        if1.add( Arrays.asList(
-                new CommandOpen("https://wykop.pl"),
-                new CommandSleep(1000)
 
-        ));
-        CommandStatementIf if2 = new CommandStatementIf(new BooleanStatementDouble("test", BooleanStatement.DoubleVar.IS_NOT_DIVISIBLE_BY, 2));
-        if1.add( Arrays.asList(
-                new CommandOpen("https://reddit.com"),
-                new CommandSleep(1000)
-
-        ));
-        CommandStatementAwait await =  new CommandStatementAwait(new BooleanStatementSingle("//*[@id=\"L2AGLb\"]/div", BooleanStatement.SingleVar.EXISTS), 1000, 100);
-        await.add(Arrays.asList(
-                new CommandActionClick("//*[@id=\"L2AGLb\"]/div"),
-                new CommandSleep(6000)
-        ));
-
-        CommandStatementWhile loop = new CommandStatementWhile(new BooleanStatementDouble("test", BooleanStatement.DoubleVar.IS_LESS_THAN, 10));
-        loop.add(
-                List.of(
-                        if1,
-                        if2
-                )
-        );
-
-        CommandStatement program = new CommandStatement(
-                Arrays.asList(
-                new CommandSleep(1000),
-                new CommandOpen("https://google.pl"),
-                        await,
-                        new CommandVarSet("test", "0"),
-                        loop
-                )
-        );
-
-
-        //engine.setProgram(program);
-        //engine.start();
-
-        EditorStatementManager.I().addStatement(program, "Main");
-        EditorStatementManager.I().addStatement(new CommandStatement(), "Test2");
-        */
         try {
             String path = new File("").getAbsolutePath();
             System.setProperty("webdriver.chrome.driver",path + "\\chromedriver.exe");
@@ -71,7 +31,7 @@ public class Main {
         CommandRegistry.I().register(CommandVarModify.class);
         CommandRegistry.I().register(CommandPrint.class);
 
-
+        //Magic
         MainWindow.I().setVisible(true);
     }
 }

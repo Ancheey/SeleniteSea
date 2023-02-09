@@ -3,6 +3,9 @@ package pl.Ancheey.SeleniteSea;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Allows for the creation of a panel that lets the user choose a bi-variable boolean and the method of their evaluation
+ */
 public class NewCommandDialogBooleanDoubleInput extends BooleanDialogInput{
     private JTextField valueField;
     private JComboBox<BooleanStatement.DoubleVar> booleanCombo;

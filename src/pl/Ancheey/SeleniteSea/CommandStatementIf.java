@@ -2,8 +2,16 @@ package pl.Ancheey.SeleniteSea;
 
 import java.util.Collection;
 
+/**
+ * A command statement containing other commands that will execute if the provided boolean evaluates to true upon execution
+ */
 public class CommandStatementIf extends CommandStatement{
     BooleanStatement statement;
+
+    /**
+     * Creates a new IF statement based on the provided boolean
+     * @param statement boolean statement to evaluate
+     */
     public CommandStatementIf(BooleanStatement statement){
         this.statement = statement;
     }

@@ -4,6 +4,9 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
+/**
+ * Base for all command containers in the visual context
+ */
 public class EditorItem extends JPanel {
     private JPanel dataContainer;
     private JLabel itemName;
@@ -14,6 +17,10 @@ public class EditorItem extends JPanel {
     private Command boundCommand;
 
 
+    /**
+     * Creates a new command item panel to be put on the UI
+     * @param command Command to base this item on
+     */
     public EditorItem(Command command){
         super();
 
@@ -64,6 +71,7 @@ public class EditorItem extends JPanel {
         dataContainer.add(textPanel);
         dataContainer.add(buttonPanel);
 
+        //Deletes itself upon execution and tells the parent to remove the child
         itemDelete.addActionListener((e) ->{
            if(boundCommand instanceof CommandStatement && !((CommandStatement) boundCommand).getCommands().isEmpty()) {
                return;
@@ -79,6 +87,8 @@ public class EditorItem extends JPanel {
             parent.revalidate();
             parent.repaint();
         });
+
+        //Uses the new item dialog to overwrite this item. Simulates editing
         itemEdit.addActionListener((e) ->{
             if(boundCommand.getParent() == null){
                 return;
@@ -97,7 +107,11 @@ public class EditorItem extends JPanel {
         return boundCommand;
     }
 
-    public void setBoundCommand(Command boundCommand) {
+    /**
+     * Binds a command to this item, setting the text on the item
+     * @param boundCommand command to bind
+     */
+    private void setBoundCommand(Command boundCommand) {
         this.boundCommand = boundCommand;
         itemName.setText(boundCommand.getClass().getSimpleName());
         itemDescription.setText(boundCommand.getDescription());

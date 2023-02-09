@@ -3,6 +3,9 @@ package pl.Ancheey.SeleniteSea;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Allows for the creation of a panel that lets the user input a text that will be either a number or a variable name. If neither is correct then it will return 0.
+ */
 public class NewCommandDialogIntInput extends NewCommandDialogInput{
     private final JTextField valueField;
     public NewCommandDialogIntInput(String name){

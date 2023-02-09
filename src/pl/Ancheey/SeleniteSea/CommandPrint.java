@@ -2,6 +2,11 @@ package pl.Ancheey.SeleniteSea;
 
 public class CommandPrint extends Command{
     private final String text;
+
+    /**
+     * Creates a simple debug command that will write out on the SeleniumSea debug console
+     * @param text raw text or name of a variable to be written out
+     */
     public CommandPrint(String text){
         this.text = text;
     }

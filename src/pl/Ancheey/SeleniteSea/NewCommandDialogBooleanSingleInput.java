@@ -2,7 +2,9 @@ package pl.Ancheey.SeleniteSea;
 
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ * Allows for the creation of a panel that lets the user choose a single-variable boolean and the method of its evaluation
+ */
 public class NewCommandDialogBooleanSingleInput extends BooleanDialogInput {
     private JTextField valueField;
     private JComboBox<BooleanStatement.SingleVar> booleanCombo;

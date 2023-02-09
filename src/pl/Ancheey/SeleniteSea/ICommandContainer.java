@@ -2,6 +2,9 @@ package pl.Ancheey.SeleniteSea;
 
 import java.util.Collection;
 
+/**
+ * This distinguishes Command Statements from base Commands
+ */
 public interface ICommandContainer {
     void add(Command command);
     void add(int index, Command command);

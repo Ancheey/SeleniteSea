@@ -1,36 +1,48 @@
 package pl.Ancheey.SeleniteSea;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.InvalidSelectorException;
 
 public class BooleanStatementSingle implements BooleanStatement{
     SingleVar statement;
-    Object value;
+    String value;
 
-    public BooleanStatementSingle(Object value, SingleVar statement){
+    public BooleanStatementSingle(String value, SingleVar statement){
         this.value = value;
         this.statement = statement;
     }
 
+    /**
+     * @return Statement evaluation based on variables passed on object construction
+     */
     public boolean evaluate() {
-        if(value.getClass() == String.class){
-            switch (statement){
-                case EXISTS -> {
-                    if(SeleniumManager.I().getVars().containsKey((String) value)){
-                        return true;
+        switch (statement){
+            case EXISTS -> {
+                if(SeleniumManager.I().getVars().containsKey(value)){
+                    return true;
+                }
+                else{
+                    try {
+                        return !SeleniumManager.I().getDriver().findElements(By.xpath(value)).isEmpty();
                     }
-                    else{
-                        return !SeleniumManager.I().getDriver().findElements(By.xpath((String) value)).isEmpty();
+                    catch(InvalidSelectorException e){
+                        return false;
                     }
                 }
-                case NOT_EXISTS -> {
-                    return SeleniumManager.I().getDriver().findElements(By.xpath((String) value)).isEmpty();
+            }
+            case NOT_EXISTS -> {
+                try {
+                    return SeleniumManager.I().getDriver().findElements(By.xpath(value)).isEmpty();
+                }
+                catch(InvalidSelectorException e){
+                    return true;
                 }
             }
         }
-        return statement == SingleVar.EXISTS;
+        return false;
     }
     @Override
     public String toString() {
-        return value.toString() + " " + statement.toString() + " " + value.toString();
+        return value + " " + statement.toString();
     }
 }

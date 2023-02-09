@@ -3,6 +3,9 @@ package pl.Ancheey.SeleniteSea;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Allows for a creation of a choice box that lets the user choose if they want a Single or a Double parameter boolean. Adds said dialog to self upon choice
+ */
 public class NewCommandDialogBooleanInput extends NewCommandDialogInput {
     BooleanDialogInput input;
 

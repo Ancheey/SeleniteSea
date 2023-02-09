@@ -8,6 +8,10 @@ import java.awt.event.ActionListener;
 
 public class EditorItemContainer extends EditorItem{
 
+    /**
+     * Creates an editor item based on a statement command. Allows containing and addition of other subcommands
+     * @param statement CommandStatement to base this container on
+     */
     public EditorItemContainer(CommandStatement statement){
         super(statement);
         JPanel statementContainer = new JPanel();
