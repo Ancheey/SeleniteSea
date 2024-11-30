@@ -1,0 +1,2 @@
+﻿Background		#0E1314
+ForeGround		#161C1E

@@ -1,0 +1,82 @@
+﻿using SeleniteSeaCore;
+using SeleniteSeaCore.codeblocks;
+using SeleniteSeaCore.variables;
+using SeleniteSeaEditor.controls;
+using SeleniteSeaEditor.controls.Displays;
+using System.Security.Cryptography.X509Certificates;
+using System.Windows;
+
+namespace SeleniteSeaEditor
+{
+    public static class EditorCore
+    {
+        public static DisplayBlock NewProject(string name, SSVarBase var) => 
+            new DisplaySSBlockScopeFunction(new SSBlockScopeFunction(name, var,[]));
+        public static DisplayBlock? InstantiateTryEditAndGetDisplay(SSBlockScope Parent, Type blocktype)
+        {
+            //Try get action data from registry
+            if (!EditorRegistry.Actions.TryGetValue(blocktype, out EditorRegistryActionItem? data) || data is null)
+                throw new InvalidOperationException("Unregistered action creation");
+
+            //Try get constructor of that block type from the SSCore
+            var ctor = blocktype.GetConstructor([typeof(List<SSVarBase>)])
+                    ?? throw new InvalidOperationException($"{blocktype} couldn't be instantiated. Missing inherited constructor.");
+
+            //Invoke the constructor and pass parent variables as params
+
+            var Block = ctor.Invoke([Parent.Variables.ToList()]) as SSBlock 
+                ?? throw new InvalidOperationException($"{blocktype} couldn't be instantiated. Constructor returned null");
+            //tries to open editor. if edited but closed then dump creation
+            if (!TryOpenEditor(Block, out bool edited) && edited)
+                return null;
+            Parent.AddChild(Block);
+            return InstantiateDisplay(Block);
+        }
+
+
+        public static DisplayBlock? InstantiateDisplay(SSBlock block) 
+        {
+            //Try get action data from registry
+            if (!EditorRegistry.Actions.TryGetValue(block.GetType(), out EditorRegistryActionItem? data) || data is null)
+                throw new InvalidOperationException("Unregistered action creation");
+
+            //Get constructor for the display that takes the block type as param
+            var dsctor = data.Display.GetConstructor([block.GetType()])
+                    ?? throw new InvalidOperationException($"{block.GetType()} display couldn't be instantiated. Missing constructor taking that object type as a parameter.");
+
+            //Check if the class is in fact a derivant of DisplayBlock
+            if (!typeof(DisplayBlock).IsAssignableFrom(data.Display))
+                throw new InvalidOperationException($"{block.GetType()} display block be instantiated. It does not inherit the DisplayBlock class");
+
+            //Try instantiate the display via the constructor
+            return dsctor.Invoke([block]) as DisplayBlock;
+        }
+
+
+        public static bool TryOpenEditor(SSBlock block, out bool edited)
+        {
+            if (!EditorRegistry.Actions.TryGetValue(block.GetType(), out EditorRegistryActionItem? data) || data is null)
+                throw new InvalidOperationException($"{block.GetType()} is not registered as an action");
+
+            //if the object is editable
+            if (data.Editable && data.Editor is not null)
+            {
+                edited = true;
+                //Try get the constructor for the editor that takes the block type as param
+                //throw new Exception($"{data.Editor.GetConstructors()[0].GetParameters()[0].ParameterType} Or {block.GetType()}\n {data.Editor.GetConstructors()[0].GetParameters()[0].ParameterType == block.GetType()}");
+
+                var edctor = data.Editor.GetConstructor([block.GetType()])
+                    ?? throw new InvalidOperationException($"{block.GetType()} editor ({data.Editor}) doesn't contain a constructor taking that type as a parameter");
+                //check if the editor class is a window
+                if (!typeof(Window).IsAssignableFrom(data.Editor))
+                    throw new InvalidOperationException($"{block.GetType()} editor doesn't inherit from a window and can't be opened");
+                //Create an instance of the editor
+                Window? editor = edctor.Invoke([block]) as Window
+                    ?? throw new InvalidOperationException($"{block.GetType()} editor couldn't be instantiated. Constructor returned null");
+                return editor.ShowDialog() == true;
+            }
+            edited = false;
+            return false;
+        }
+    }
+}
