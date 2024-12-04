@@ -31,7 +31,7 @@ namespace SeleniteSeaEditor
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ScopeBox.Children.Add(EditorCore.NewProject("Unnamed", new SSVarNmb("ReturnVal",new Guid())));
+            ScopeBox.Children.Add(EditorCore.NewProject());
         }
     }
 }

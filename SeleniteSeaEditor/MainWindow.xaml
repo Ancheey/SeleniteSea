@@ -26,7 +26,7 @@
                     <Button Width="25" Background="Transparent" Foreground="LightGray" Content="💾" Margin="2" ToolTip="Save"/>
                     <Button Width="25" Background="Transparent" Foreground="LightGray" Content="📁" Margin="2" ToolTip="Load"/>
                     <Button Width="25" Background="Transparent" Foreground="LightGray" Content="➤" Margin="2"/>
-                    <Button Width="120" Background="Transparent" Foreground="LightGray" Content="Project Settings" Margin="2"/>
+                    <Button Width="100" Background="Transparent" Foreground="LightGray" Content="Settings" Margin="2"/>
                 </StackPanel>
             </Border>
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible" Margin="2,0,2,0">

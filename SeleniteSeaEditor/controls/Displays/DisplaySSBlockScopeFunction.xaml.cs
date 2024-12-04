@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace SeleniteSeaEditor.controls.Displays
 {
@@ -22,7 +23,7 @@ namespace SeleniteSeaEditor.controls.Displays
     /// </summary>
     public partial class DisplaySSBlockScopeFunction : DisplayBlock
     {
-        private SSBlockScopeFunction ownedScope;
+        private readonly SSBlockScopeFunction ownedScope;
         public override Color Color
         {
             get => _color;
@@ -48,8 +49,8 @@ namespace SeleniteSeaEditor.controls.Displays
             ActionTitle.Content = "Function " + ownedScope.Name;
             var additionbutton = new ScopeAddButton((o, e) => { ClickAddButton(0); });
             ScopeActionsContainer.Children.Add(additionbutton);
-            ActionTitleReturn.Content = "[Returns: " + ownedScope.ReturnValue.ToString() + "]";
-            //ActionTitleReturn.MouseUp += (o, e) => RunEditor();
+            AdjustRequestedVarsVisual();
+            ActionParams.MouseUp += (o, e) => RunEditor();
         }
         public void AddAction(DisplayBlock action, int index)
         {
@@ -76,10 +77,13 @@ namespace SeleniteSeaEditor.controls.Displays
         }
         public void RunEditor()
         {
-            
             Debug.Log(StatusCode.Info,EditorCore.TryOpenEditor(ownedScope, out _).ToString(),null);
 
-            ActionTitleReturn.Content = "[Returns: "+ownedScope.ReturnValue.ToString()+"]";
+            AdjustRequestedVarsVisual();
+        }
+        public void AdjustRequestedVarsVisual()
+        {
+            ActionParams.Content = $"({string.Join(", ",ownedScope.RequestedVariables.Keys)})";
         }
     }
 }

@@ -8,22 +8,21 @@ using System.Threading.Tasks;
 
 namespace SeleniteSeaCore.codeblocks
 {
-    public abstract class SSBlock(List<SSVarBase> variables)
+    public abstract class SSBlock
     {
         public bool Done = false;
         public SSBlockScope? Parent { get; private set; } = null;
+
+        //No longer needed
+        /*
         private List<SSVarBase> InheritedVariables = new(variables);
         private readonly List<SSVarBase> PersonalVariables = [];
         public ImmutableList<SSVarBase> Variables => (new List<SSVarBase>(InheritedVariables).Concat(PersonalVariables)).ToImmutableList();
         public ImmutableList<SSVarBase> OnlyPersonalVariables => [.. PersonalVariables];
 
-        public virtual void InheritVariables(IEnumerable<SSVarBase> variables) => InheritedVariables = new(variables);
-        /// <summary>
-        /// Provides a set of variable references that are meant to be edited when editing this Block
-        /// string is for descriptions
-        /// </summary>
-        public virtual Dictionary<SSVarBase, string> VariablesForEdition() => [];
-        public virtual void AddVariable(SSVarBase var)
+        public virtual void InheritVariables(IEnumerable<SSVarBase> variables) => InheritedVariables = new(variables);*/
+
+        /*public virtual void AddVariable(SSVarBase var)
         {
             if (Variables.Any(v => v.Guid == var.Guid || v.Name == v.Name))
                 throw new Exception($"Unable to add a {var.Name} variable to block. Variable with that name or GUID already exists in this scope");
@@ -43,8 +42,19 @@ namespace SeleniteSeaCore.codeblocks
         {
             if (PersonalVariables.RemoveAll(k => k.Guid == guid) == 0)
                 throw new Exception($"Couldn't remove variable with guid: {guid} from block. Not found!");
-        }
+        }*/
+
+
+        /// <summary>
+        /// Provides a set of variable references that are meant to be edited when editing this Block
+        /// string is for descriptions
+        /// </summary>
+        public virtual Dictionary<string, string> VariablesForEdition() => [];
+
         /// <returns>True if it was executed propertly</returns>
         public abstract bool Execute(ExecutionData data);
+
+        public abstract string[] GetSerializedMetadata();
+        public abstract void DeserializeAndApplyMetadata(params string[] args);
     }
 }

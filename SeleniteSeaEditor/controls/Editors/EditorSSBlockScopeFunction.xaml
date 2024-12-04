@@ -5,13 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SeleniteSeaEditor.controls.Editors"
         mc:Ignorable="d"
-        Title="EditorSSBlockScopeFunction" Height="100" Width="300">
+        Title="EditorSSBlockScopeFunction" Height="135" Width="300">
     <Grid Margin="20">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <ComboBox x:Name="TypePicker"/>
-        <Button Click="Button_Click" Grid.Column="1" Content="Accept"/>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label Content="Nazwa:"/>
+        <TextBox Grid.Column="1"/>
+        <Label HorizontalAlignment="Center" Grid.Row="1" Grid.ColumnSpan="2" Content="PH Param Editor"/>
+        <Button Click="Button_Click" Grid.Column="1" Grid.Row="2" Content="Accept"/>
     </Grid>
 </Window>

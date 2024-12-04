@@ -11,6 +11,7 @@ namespace SeleniteSeaCore
     public delegate void OnDebugMessage(StatusCode status, string text, SSBlock? errorCaller);
     public static class Debug
     {
+        public static int REFERENCE_DEPTH { get; set; } = 8;
         public static event OnDebugMessage? OnDebugMessageEvent;
 
         public static void Log(StatusCode status, string text, SSBlock? errorCaller)

@@ -25,13 +25,11 @@ namespace SeleniteSeaEditor.controls.Editors
         {
             InitializeComponent();
             ToEdit = toedit;
-            //Adding types to the drop-down
-            foreach (var i in EditorRegistry.Variables)
-                TypePicker.Items.Add(i.Value.Name);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+
             DialogResult = true;
 
         }

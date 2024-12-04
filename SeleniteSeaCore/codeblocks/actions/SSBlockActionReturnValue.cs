@@ -7,17 +7,24 @@ using System.Threading.Tasks;
 
 namespace SeleniteSeaCore.codeblocks.actions
 {
-    public class SSBlockActionReturnValue(List<SSVarBase> variables) : SSBlock(variables)
+    public class SSBlockActionReturnValue : SSBlock
     {
-        public SSVarBase returnvar = new SSVarNmb("DefaultReturnValueForNewReturnAction", Guid.NewGuid());
+        string? ReturnValue { get; set; }
         public override bool Execute(ExecutionData data)
         {
             if (Parent is not null)
                 Parent.Done = true;
             else
                 return false;
-            data.ReturnValue = returnvar;
+            data.ReturnValue = ReturnValue;
             return true;
         }
+
+        public override void DeserializeAndApplyMetadata(params string[] args)
+        {
+            if (args.Length > 0)
+                ReturnValue = args[0];
+        }
+        public override string[] GetSerializedMetadata() => [ReturnValue ?? ""];
     }
 }

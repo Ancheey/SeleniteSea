@@ -9,7 +9,7 @@ namespace SeleniteSeaCore
 {
     public class ExecutionData
     {
-        public Type? ReturnType => ReturnValue?.GetType();
-        public SSVarBase? ReturnValue;
+        public string? ReturnValue { get; set; }
+        public Dictionary<string,SSValue> RuntimeVariables { get; set; } = [];
     }
 }

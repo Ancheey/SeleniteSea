@@ -10,8 +10,12 @@ namespace SeleniteSeaEditor
 {
     public static class EditorCore
     {
-        public static DisplayBlock NewProject(string name, SSVarBase var) => 
-            new DisplaySSBlockScopeFunction(new SSBlockScopeFunction(name, var,[]));
+        public static DisplayBlock NewProject() => 
+            new DisplaySSBlockScopeFunction(new SSBlockScopeFunction());
+        //TODO: Run new editor right after
+
+
+
         public static DisplayBlock? InstantiateTryEditAndGetDisplay(SSBlockScope Parent, Type blocktype)
         {
             //Try get action data from registry
@@ -19,16 +23,17 @@ namespace SeleniteSeaEditor
                 throw new InvalidOperationException("Unregistered action creation");
 
             //Try get constructor of that block type from the SSCore
-            var ctor = blocktype.GetConstructor([typeof(List<SSVarBase>)])
-                    ?? throw new InvalidOperationException($"{blocktype} couldn't be instantiated. Missing inherited constructor.");
+            var ctor = blocktype.GetConstructor([])
+                    ?? throw new InvalidOperationException($"{blocktype} couldn't be instantiated. Missing blank constructor.");
 
             //Invoke the constructor and pass parent variables as params
 
-            var Block = ctor.Invoke([Parent.Variables.ToList()]) as SSBlock 
+            var Block = ctor.Invoke([]) as SSBlock 
                 ?? throw new InvalidOperationException($"{blocktype} couldn't be instantiated. Constructor returned null");
             //tries to open editor. if edited but closed then dump creation
             if (!TryOpenEditor(Block, out bool edited) && edited)
                 return null;
+
             Parent.AddChild(Block);
             return InstantiateDisplay(Block);
         }
