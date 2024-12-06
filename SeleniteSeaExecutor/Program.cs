@@ -24,6 +24,10 @@ if (args.Length > 0)
 }
 //Execute code (this mode is for drag and drop or console execution of functions)  
 
+//Create a Type registry
+//Load all dlls and their registries
+//Deserialize
+//run
 
     
 

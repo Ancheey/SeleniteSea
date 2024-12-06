@@ -107,6 +107,7 @@ namespace SeleniteSeaExecutor
                 }
                 root ??= workpiece;
             }
+            reader.Close();
             return root;
         }
         public static SSBlock Instantiate(Type blocktype)

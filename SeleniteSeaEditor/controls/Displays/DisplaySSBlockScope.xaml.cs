@@ -20,7 +20,7 @@ namespace SeleniteSeaEditor.controls.Displays
     /// <summary>
     /// Logika interakcji dla klasy DisplaySSBlockScope.xaml
     /// </summary>
-    public partial class DisplaySSBlockScope : DisplayBlock
+    public partial class DisplaySSBlockScope : DisplayBlock, IActionContainer
     {
         private SSBlockScope ownedScope;
         public override Color Color

@@ -10,6 +10,7 @@ namespace SeleniteSeaCore.codeblocks
 {
     public abstract class SSBlock
     {
+        public abstract string Title { get;}
         public bool Done = false;
         public SSBlockScope? Parent { get; private set; } = null;
 

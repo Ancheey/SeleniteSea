@@ -1,5 +1,7 @@
-﻿using SeleniteSeaCore;
+﻿using Microsoft.Win32;
+using SeleniteSeaCore;
 using SeleniteSeaCore.variables;
+using SeleniteSeaEditor.controls;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,16 +24,31 @@ namespace SeleniteSeaEditor
         {
             InitializeComponent();
 
-
             Debug.OnDebugMessageEvent += (status, text, caller) =>
             {
                 LogConsole.AppendText($"[{status}][{DateTime.Now:HH:mm:ss}] {text}");
             };
+
+
+            ProjectSelectWindow dialog = new();
+            if (dialog.ShowDialog() == true)
+            {
+                EditorCore.WorkingDirectory = dialog.SelectedPath;
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             ScopeBox.Children.Add(EditorCore.NewProject());
+        }
+
+        private void ProjectSelectButton_Click(object sender, RoutedEventArgs e)
+        {
+            ProjectSelectWindow dialog = new();
+            if(dialog.ShowDialog() == true)
+            {
+                EditorCore.WorkingDirectory = dialog.SelectedPath;
+            }
         }
     }
 }

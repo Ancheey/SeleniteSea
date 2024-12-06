@@ -10,6 +10,9 @@ namespace SeleniteSeaCore.codeblocks.actions
     public class SSBlockActionReturnValue : SSBlock
     {
         string? ReturnValue { get; set; }
+
+        public override string Title => $"Finish and return {ReturnValue??"nothing"}";
+
         public override bool Execute(ExecutionData data)
         {
             if (Parent is not null)

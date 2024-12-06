@@ -11,6 +11,9 @@ namespace SeleniteSeaCore.codeblocks
     {
         public string Name { get; set; }
         public string Description { get; set; }
+
+        public override string Title => Name;
+
         /// <summary>
         /// {Name, Default_Value}, description pair for requested variables for function execution
         /// </summary>
@@ -36,10 +39,20 @@ namespace SeleniteSeaCore.codeblocks
 
         public override void DeserializeAndApplyMetadata(params string[] args)
         {
+            //Name
+            //Description
+            //Var1 Name
+            //Var1 description
+            //Var1 defaultvalue
+            //Var2 Name
+            //...
+
             if(args.Length > 0)
                 Description = args[0];
             if (args.Length > 1)
                 Description = args[1];
+            for(int i = 2; args.Length >= i+2; i += 3)
+                RequestedVariables.Add(args[i], (args[i + 1], args[i + 2]));
         }
     }
 }
