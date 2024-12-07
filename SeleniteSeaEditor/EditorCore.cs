@@ -3,6 +3,8 @@ using SeleniteSeaCore.codeblocks;
 using SeleniteSeaCore.variables;
 using SeleniteSeaEditor.controls;
 using SeleniteSeaEditor.controls.Displays;
+using SeleniteSeaExecutor;
+using System.IO;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows;
@@ -14,6 +16,9 @@ namespace SeleniteSeaEditor
         public static string LocalDirectory => AppDomain.CurrentDomain.BaseDirectory;
         public static string WorkingDirectory { get; set; } = "";
         public static string WorkingFile { get; set; } = "";
+
+        //Load functions to it and save last state of the display so we don't have to rebuild it each time we open the script
+        public static Dictionary<SSBlock, DisplayBlock?> LoadedFunctions { get; private set; } = [];
 
 
         public static DisplayBlock NewProject() => 
@@ -88,6 +93,43 @@ namespace SeleniteSeaEditor
             }
             edited = false;
             return false;
+        }
+        public static void LoadWorkingDirectory(string path)
+        {
+
+            WorkingDirectory = path;
+            var files = Directory.GetFiles(path, "*.seascript");
+            foreach (var file in files)
+            {
+                var a = SerializationEngine.Deserialize(EditorRegistry.RegisteredTypes.ToDictionary(), file);
+                if(a is not null)
+                    LoadedFunctions.Add(a,null);
+            }
+        }
+        public static DisplayBlock? GetFunctionVisual(SSBlock block)
+        {
+            if (LoadedFunctions.ContainsKey(block))
+            {
+                if (LoadedFunctions[block] is null)
+                    LoadedFunctions[block] = BuildVisual(block);
+                return LoadedFunctions[block];
+            }
+            return BuildVisual(block);
+        }
+        public static DisplayBlock? BuildVisual(SSBlock block)
+        {
+            var display = InstantiateDisplay(block);
+            if (typeof(SSBlockScope).IsAssignableFrom(block.GetType()) && display is IActionContainer container)
+            {
+                SSBlockScope scope = (SSBlockScope)block;
+                for(int i = 0; i < scope.Children.Count; i++)
+                {
+                    var visual = BuildVisual(scope.Children[i]);
+                    if (visual is not null)
+                        container.AddAction(visual, i);
+                }
+            }
+            return display;
         }
     }
 }

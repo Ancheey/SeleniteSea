@@ -1,2 +1,2 @@
-﻿Background		#0E1314
-ForeGround		#161C1E
+﻿Background		#0E1314  #181924
+ForeGround		#161C1E  #232133

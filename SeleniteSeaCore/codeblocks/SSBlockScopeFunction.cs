@@ -12,10 +12,10 @@ namespace SeleniteSeaCore.codeblocks
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public override string Title => Name;
+        public override string Title => Name + $"({string.Join(", ",RequestedVariables.Keys)})";
 
         /// <summary>
-        /// {Name, Default_Value}, description pair for requested variables for function execution
+        /// {Name, (Default_Value, description)} pair for requested variables for function execution
         /// </summary>
         public Dictionary<string,(string description, string defaultValue)> RequestedVariables = [];
         public SSBlockScopeFunction() : base()

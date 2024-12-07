@@ -29,7 +29,8 @@ namespace SeleniteSeaExecutor
                 var data = block.GetSerializedMetadata();
 
                 if (previousDepth > depth)
-                    writer.WriteLine("<--");
+                    for (int i = depth; i < previousDepth; i++)
+                        writer.WriteLine("<--");
                 else if (previousDepth < depth)
                     writer.WriteLine("-->");
 
@@ -62,8 +63,8 @@ namespace SeleniteSeaExecutor
             SSBlockScope? CurrentParent = null;
 
             using StreamReader reader = new(file);
-            
 
+            int fileline = 0;
             //Element Creation
             SSBlock? workpiece = null;
             int metadataLinesLeft = 0;
@@ -71,6 +72,7 @@ namespace SeleniteSeaExecutor
             string? line;
             while((line = reader.ReadLine())!= null)
             {
+                fileline++;
                 if(metadataLinesLeft == 0 && workpiece != null)
                 {
                     //apply metadata
@@ -90,7 +92,7 @@ namespace SeleniteSeaExecutor
                     //reset workpiece
                     workpiece = null;
                     metadata.Clear();
-                    
+                    continue;
                 }
                 if (metadataLinesLeft > 0)
                 {
@@ -100,10 +102,15 @@ namespace SeleniteSeaExecutor
                 if (workpiece == null) //New workpiece
                 {
                     if (!RegisteredBlocks.TryGetValue(line,out Type? blocktype))
-                        throw new InvalidDataException($"Deserialization error: Type {line} not registered");
+                        throw new InvalidDataException($"Deserialization error: Type {line} at line {fileline} not registered. Available types: {string.Join(", ",RegisteredBlocks.Keys)}");
                     workpiece = Instantiate(blocktype);
                     CurrentParent?.AddChild(workpiece);
-                    
+                    string? linecount = reader.ReadLine() ?? throw new Exception($"Deserialization error: Type {line} at line {fileline} didn't contain metadata lines count");
+                    if (int.TryParse(linecount, out int i))
+                        metadataLinesLeft = i;
+                    else
+                        throw new Exception($"Deserialization error: Type {line} at line {fileline} didn't contain metadata lines count");
+                    fileline++;
                 }
                 root ??= workpiece;
             }

@@ -16,11 +16,13 @@ namespace SeleniteSeaEditor
     {
         private static readonly Dictionary<Type, EditorRegistryActionItem> ActionData = [];
         public static ImmutableDictionary<Type, EditorRegistryActionItem> Actions => ActionData.ToImmutableDictionary();
-
+        private readonly static Dictionary<string, Type> _registeredTypes = [];
+        public static ImmutableDictionary<string, Type> RegisteredTypes => _registeredTypes.ToImmutableDictionary();
 
         public static void RegisterAction(Type action, EditorRegistryActionItem data)
         {
             ActionData.Add(action, data);
+            _registeredTypes.Add(action.ToString(), action);
         }
 
         static EditorRegistry() 

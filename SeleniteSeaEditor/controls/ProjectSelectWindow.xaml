@@ -8,8 +8,8 @@
         mc:Ignorable="d"
         ResizeMode="NoResize"
         WindowStyle="ToolWindow"
-        Background="#0E1314"
-        Title="Project Selection" Height="450" Width="800">
+        Background="#181924"
+        Title="Project Selection" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="7*"/>
@@ -20,9 +20,9 @@
         <Border Grid.Column="1" BorderThickness="0.1,0,0,0" BorderBrush="Gray">
             <StackPanel >
                 <Button Content="New Project" Height="60" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                        Foreground="LightGray" BorderBrush="LightGray" Margin="5,0,0,5" BorderThickness="2" Background="#161C1E" Cursor="Hand" Click="Button_Click"/>
+                        Foreground="LightGray" BorderBrush="LightGray" Margin="5,0,0,5" BorderThickness="2" Background="#232133" Cursor="Hand" Click="Button_Click"/>
                 <Button Content="GitHub" Height="60" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                        Foreground="LightGray" BorderBrush="LightGray" Margin="5,0,0,5" BorderThickness="2" Background="#161C1E" Cursor="Hand" Click="Button_Click_1"/>
+                        Foreground="LightGray" BorderBrush="LightGray" Margin="5,0,0,5" BorderThickness="2" Background="#232133" Cursor="Hand" Click="Button_Click_1"/>
             </StackPanel>
         </Border>
     </Grid>

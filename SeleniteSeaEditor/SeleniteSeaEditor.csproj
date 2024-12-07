@@ -9,7 +9,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="output.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\SeleniteSeaCore\SeleniteSeaCore.csproj" />
+    <ProjectReference Include="..\SeleniteSeaExecutor\SeleniteSeaExecutor.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="output.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
