@@ -9,7 +9,7 @@
         ResizeMode="NoResize"
         WindowStyle="ToolWindow"
         Background="#181924"
-        Title="Project Selection" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="Project Selection" Height="450" Width="800" WindowStartupLocation="CenterScreen" Icon="/SSico.ico">
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="7*"/>

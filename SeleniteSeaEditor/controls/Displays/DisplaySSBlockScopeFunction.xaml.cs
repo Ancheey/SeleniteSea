@@ -46,17 +46,19 @@ namespace SeleniteSeaEditor.controls.Displays
             ownedScope = scope;
             InitializeComponent();
 
-            ActionTitle.Content = "Function " + ownedScope.Name;
-            var additionbutton = new ScopeAddButton((o, e) => { ClickAddButton(0); });
+            Refresh();
+            var additionbutton = new ScopeAddButton();
+            additionbutton.OnClick = () => ClickAddButton(ScopeActionsContainer.Children.IndexOf(additionbutton)/2);
             ScopeActionsContainer.Children.Add(additionbutton);
             AdjustRequestedVarsVisual();
             ActionParams.MouseUp += (o, e) => RunEditor();
         }
         public void AddAction(DisplayBlock action, int index)
         {
-            ScopeActionsContainer.Children.Insert(index + 1, action);
-            var additionbutton = new ScopeAddButton((o, e) => { ClickAddButton(index + 2); });
-            ScopeActionsContainer.Children.Insert(index + 2, additionbutton);
+            ScopeActionsContainer.Children.Insert((index*2) +1, action);
+            var additionbutton = new ScopeAddButton();
+            additionbutton.OnClick = () => ClickAddButton(ScopeActionsContainer.Children.IndexOf(additionbutton)/2);
+            ScopeActionsContainer.Children.Insert((index * 2) + 2, additionbutton);
         }
         //This method is added as an onClick for all Add buttons
         public void ClickAddButton(int targetindex)
@@ -75,11 +77,24 @@ namespace SeleniteSeaEditor.controls.Displays
                 }
             }
         }
+        public bool RemoveAction(DisplayBlock action)
+        {
+            var index = ScopeActionsContainer.Children.IndexOf(action);
+            if (index == -1)
+                return false;
+            ScopeActionsContainer.Children.RemoveRange(index, 2);
+            return true;
+        }
+        public void Refresh()
+        {
+            ActionTitle.Content = "Fn " + ownedScope.Name;
+            AdjustRequestedVarsVisual();
+        }
         public void RunEditor()
         {
             Debug.Log(StatusCode.Info,EditorCore.TryOpenEditor(ownedScope, out _).ToString(),null);
 
-            AdjustRequestedVarsVisual();
+            Refresh();
         }
         public void AdjustRequestedVarsVisual()
         {

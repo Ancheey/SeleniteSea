@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SeleniteSeaEditor.controls"
         mc:Ignorable="d"
-        Background="#FF0E1314"
-        Title="NewBlockWindow" Height="450" Width="800">
+        Background="#181924"
+        Title="Block Choice Dialog" Height="300" Width="500" ResizeMode="NoResize" ShowInTaskbar="False">
     <Border BorderThickness="1" BorderBrush="White">
         <DockPanel>
-            <TextBox DockPanel.Dock="Top" Background="Transparent"/>
-            <ListBox Background="Transparent" x:Name="ActionSelectionListbox"/>
+            <TextBox DockPanel.Dock="Top" Background="#232133" BorderBrush="Black" BorderThickness="0.6" Margin="5,5,5,5" Foreground="LightGray"/>
+            <ListBox Background="#232133" x:Name="ActionSelectionListbox" Margin="5,0,5,5"/>
         </DockPanel>
     </Border>
 </Window>

@@ -3,6 +3,8 @@ using SeleniteSeaCore;
 using SeleniteSeaCore.codeblocks;
 using SeleniteSeaCore.variables;
 using SeleniteSeaEditor.controls;
+using SeleniteSeaEditor.controls.Displays;
+using SeleniteSeaExecutor;
 using System.IO;
 using System.Text;
 using System.Windows;
@@ -32,7 +34,11 @@ namespace SeleniteSeaEditor
 
             Debug.OnDebugMessageEvent += (status, text, caller) =>
             {
-                LogConsole.AppendText($"[{status}][{DateTime.Now:HH:mm:ss}] {text}");
+                Dispatcher.Invoke(() =>
+                {
+                    LogConsole.AppendText($"\r[{status}][{DateTime.Now:HH:mm:ss}] {text}");
+                    LogConsole.ScrollToEnd();
+                });
             };
 
             ProjectSelectWindow dialog = new();
@@ -45,7 +51,8 @@ namespace SeleniteSeaEditor
                 }
                 catch(Exception e)
                 {
-                    LogConsole.AppendText($"[ERROR][{DateTime.Now:HH:mm:ss}] {e}");
+                    LogConsole.AppendText($"\r[ERROR][{DateTime.Now:HH:mm:ss}] {e}");
+                    LogConsole.ScrollToEnd();
                 }
             }
         }
@@ -66,27 +73,87 @@ namespace SeleniteSeaEditor
         }
         public void LoadProjectDirectory(string dir)
         {
-            Fileview.Children.Clear();
-            EditorCore.LoadWorkingDirectory(dir);
-            foreach(var block in EditorCore.LoadedFunctions)
+            void BlockCreation(SSBlock block)
             {
                 var label = new Label()
                 {
-                    Content = block.Key.Title,
+                    Content = block.Title,
                     Cursor = Cursors.Hand,
                     Foreground = Brushes.LightGray
                 };
-                if (typeof(SSBlockScopeFunction).IsAssignableFrom(block.Key.GetType()))
+                if (typeof(SSBlockScopeFunction).IsAssignableFrom(block.GetType()))
                 {
-                    label.ToolTip = ((SSBlockScopeFunction)block.Key).Description;
+                    label.ToolTip = ((SSBlockScopeFunction)block).Description;
                 }
                 label.MouseDoubleClick += (o, e) =>
                 {
                     ScopeBox.Children.Clear();
-                    ScopeBox.Children.Add(EditorCore.GetFunctionVisual(block.Key));
+                    ScopeBox.Children.Add(EditorCore.GetFunctionVisual(block));
+                    EditorCore.CurrentBlock = block;
+                    SaveButton.IsEnabled = true;
                 };
                 Fileview.Children.Add(label);
             }
+
+            Fileview.Children.Clear();
+            EditorCore.LoadWorkingDirectory(dir);
+            ProjectName.Content = dir.Split("\\").Last();
+
+            var add = new Label()
+            {
+                Content = "+",
+                Cursor = Cursors.Hand,
+                HorizontalContentAlignment = HorizontalAlignment.Center,
+                Foreground = Brushes.White,
+                FontWeight = FontWeights.Bold,
+            };
+            add.MouseLeftButtonUp += (s, e) =>
+            {
+                var block = new SSBlockScopeFunction();
+                var db = new DisplaySSBlockScopeFunction(block);
+                if (!EditorCore.TryOpenEditor(block, out bool edited) || !edited)
+                    return;
+                db.Refresh();
+                ScopeBox.Children.Clear();
+                ScopeBox.Children.Add(db);
+                EditorCore.LoadedFunctions.Add(block, db);
+                EditorCore.CurrentBlock = block;
+                SaveButton.IsEnabled = true;
+                BlockCreation(block);
+
+            };
+            Fileview.Children.Add(add);
+            foreach(var block in EditorCore.LoadedFunctions)
+                BlockCreation(block.Key);
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (EditorCore.CurrentBlock is not null)
+                EditorCore.Save(EditorCore.CurrentBlock, EditorCore.WorkingDirectory);
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            if (EditorCore.CurrentBlock is not null)
+            {
+                Debug.Log(StatusCode.Success, $"Executing..", null);
+                RunButton.IsEnabled = false;
+                ExecuteTask(EditorCore.CurrentBlock);
+            }
+        }
+        private async void ExecuteTask(SSBlock s)
+        {
+            try
+            {
+                var result = await SSProcess.Execute(s, new(EditorCore.WorkingDirectory,EditorRegistry.RegisteredTypes.ToDictionary()));
+                Debug.Log(StatusCode.Success,$"Execution ended with result: {result.ReturnValue}",null);
+            }
+            catch(Exception e)
+            {
+                Debug.Log(StatusCode.Error,e.ToString(),null);
+            }
+            Dispatcher.Invoke(() => RunButton.IsEnabled = true);
         }
     }
 }

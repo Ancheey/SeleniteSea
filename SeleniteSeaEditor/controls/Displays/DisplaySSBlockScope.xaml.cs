@@ -44,14 +44,16 @@ namespace SeleniteSeaEditor.controls.Displays
         {
             this.ownedScope = ownedScope;
             InitializeComponent();
-            var additionbutton = new ScopeAddButton((o, e) => { ClickAddButton(0); });
+            var additionbutton = new ScopeAddButton();
+            additionbutton.OnClick = () => ClickAddButton(ScopeActionsContainer.Children.IndexOf(additionbutton) / 2);
             ScopeActionsContainer.Children.Add(additionbutton);
         }
         public void AddAction(DisplayBlock action, int index)
         {
-            ScopeActionsContainer.Children.Insert(index + 1, action);
-            var additionbutton = new ScopeAddButton((o, e) => { ClickAddButton(index + 2); });
-            ScopeActionsContainer.Children.Insert(index + 2, additionbutton);
+            ScopeActionsContainer.Children.Insert((index * 2) + 1, action);
+            var additionbutton = new ScopeAddButton();
+            additionbutton.OnClick = () => ClickAddButton(ScopeActionsContainer.Children.IndexOf(additionbutton) / 2);
+            ScopeActionsContainer.Children.Insert((index * 2) + 2, additionbutton);
         }
         //This method is added as an onClick for all Add buttons
         public void ClickAddButton(int targetindex)
@@ -69,6 +71,15 @@ namespace SeleniteSeaEditor.controls.Displays
                         AddAction(block, targetindex);
                 }    
             }
+        }
+
+        public bool RemoveAction(DisplayBlock action)
+        {
+            var index = ScopeActionsContainer.Children.IndexOf(action);
+            if (index == -1)
+                return false;
+            ScopeActionsContainer.Children.RemoveRange(index, 2);
+            return true;
         }
     }
 }

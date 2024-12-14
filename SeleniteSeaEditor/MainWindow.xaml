@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SeleniteSeaEditor"
         mc:Ignorable="d"
         Background="#181924"
-        Title="Selenite Sea Editor" Height="450" Width="800" FontFamily="Cascadia Mono" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+        Title="Selenite Sea Editor" Height="450" Width="800" FontFamily="Cascadia Mono" WindowStartupLocation="CenterScreen" WindowState="Maximized" Icon="/SSico.ico">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition MinWidth="60"/>
@@ -23,8 +23,8 @@
             </Grid.RowDefinitions>
             <Border Margin="2" Grid.Row="0" Background="#232133" BorderThickness="0.3" BorderBrush="White">
                 <DockPanel>
-                    <Button Width="25" Background="Transparent" Foreground="LightGray" Content="➤" Margin="2" />
-                    <Button Width="25" Background="Transparent" Foreground="LightGray" Content="💾" Margin="2" ToolTip="Save"/>
+                    <Button x:Name="RunButton" Width="25" Background="Transparent" Foreground="LightGray" Content="➤" Margin="2" Click="Button_Click_2" />
+                    <Button x:Name="SaveButton" Width="25" Background="Transparent" Foreground="LightGray" Content="💾" Margin="2" ToolTip="Save" Click="Button_Click_1" IsEnabled="False"/>
                     <Button Width="25" Background="Transparent" Foreground="LightGray" Content="📁" Margin="2" ToolTip="Load" DockPanel.Dock="Right" x:Name="ProjectSelectButton" Click="ProjectSelectButton_Click"/>
                     <Label/><!--Filler-->
                 </DockPanel>
@@ -37,13 +37,13 @@
             </ScrollViewer>
             <GridSplitter Grid.Row="2" Background="Transparent" ResizeDirection="Rows" HorizontalAlignment="Stretch"/>
             <Border Margin="2" Grid.Row="3" Background="#232133" BorderThickness="0.3" BorderBrush="White">
-                <RichTextBox Background="Transparent" Foreground="LightGray" BorderThickness="0" IsReadOnly="true" x:Name="LogConsole" x:FieldModifier="private"/>
+                <RichTextBox Background="Transparent" Foreground="LightGray" BorderThickness="0" IsReadOnly="true" x:Name="LogConsole" x:FieldModifier="private" AcceptsReturn="True"/>
             </Border>
         </Grid>
         <GridSplitter Grid.Column="1" Background="Transparent" ResizeDirection="Columns" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         <Border Margin="2" Grid.Column="2" Background="#232133" BorderThickness="0.3" BorderBrush="White">
             <DockPanel>
-                <Label BorderThickness="0,0,0,0.2" BorderBrush="Gray" DockPanel.Dock="Top" Margin="5,0,5,0" Foreground="LightGray" Content=""/>
+                <Label x:Name="ProjectName" BorderThickness="0,0,0,0.2" BorderBrush="Gray" DockPanel.Dock="Top" Margin="5,0,5,0" Foreground="LightGray" Content=""/>
                 <StackPanel Background="Transparent" x:Name="Fileview"/>
             </DockPanel>
         </Border>

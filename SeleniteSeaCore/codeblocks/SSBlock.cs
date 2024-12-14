@@ -12,7 +12,7 @@ namespace SeleniteSeaCore.codeblocks
     {
         public abstract string Title { get;}
         public bool Done = false;
-        public SSBlockScope? Parent { get; private set; } = null;
+        public SSBlockScope? Parent { get; internal set; } = null;
 
         //No longer needed
         /*
@@ -50,7 +50,6 @@ namespace SeleniteSeaCore.codeblocks
         /// Provides a set of variable references that are meant to be edited when editing this Block
         /// string is for descriptions
         /// </summary>
-        public virtual Dictionary<string, string> VariablesForEdition() => [];
 
         /// <returns>True if it was executed propertly</returns>
         public abstract bool Execute(ExecutionData data);

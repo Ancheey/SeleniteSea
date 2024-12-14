@@ -1,0 +1,22 @@
+﻿<Window x:Class="SeleniteSeaEditor.controls.Editors.EditorSSBlockActionBasic"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SeleniteSeaEditor.controls.Editors"
+        mc:Ignorable="d"
+        Background="#232133"
+        ResizeMode="CanResizeWithGrip"
+        Title="EditorSSBlockActionBasic" Height="400" Width="300">
+    <DockPanel Margin="10">
+        <Label x:Name="ItemName" Content="ItemName" DockPanel.Dock="Top" FontWeight="Bold" Foreground="LightGray" BorderThickness="0,0,0,0.3" BorderBrush="Black"/>
+        <TextBlock x:Name="ItemDescription" Foreground="LightGray" Margin="5,0,5,5" Text="lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum" TextWrapping="Wrap" DockPanel.Dock="Top"/>
+        <Button DockPanel.Dock="Bottom" Content="Accept" Background="#232133" Foreground="LightGray" BorderBrush="Black" Margin="0,5,0,0" HorizontalAlignment="Left" Padding="2" Click="Button_Click"/>
+        <Border BorderThickness="1" BorderBrush="Black" Background="#181924">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel x:Name="Values" Margin="5">
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </DockPanel>
+</Window>

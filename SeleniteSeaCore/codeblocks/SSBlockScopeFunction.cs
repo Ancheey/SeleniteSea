@@ -12,7 +12,7 @@ namespace SeleniteSeaCore.codeblocks
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public override string Title => Name + $"({string.Join(", ",RequestedVariables.Keys)})";
+        public override string Title => Name;
 
         /// <summary>
         /// {Name, (Default_Value, description)} pair for requested variables for function execution
@@ -48,7 +48,7 @@ namespace SeleniteSeaCore.codeblocks
             //...
 
             if(args.Length > 0)
-                Description = args[0];
+                Name = args[0];
             if (args.Length > 1)
                 Description = args[1];
             for(int i = 2; args.Length >= i+2; i += 3)

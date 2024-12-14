@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <None Remove="output.jpg" />
+    <None Remove="SSico.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +20,9 @@
 
   <ItemGroup>
     <Resource Include="output.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="SSico.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

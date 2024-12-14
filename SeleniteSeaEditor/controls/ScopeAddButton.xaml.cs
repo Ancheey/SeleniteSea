@@ -21,6 +21,17 @@ namespace SeleniteSeaEditor.controls
     /// </summary>
     public partial class ScopeAddButton : UserControl
     {
+        private MouseButtonEventHandler? _onclick;
+        public Action? OnClick
+        {
+            set
+            {
+                if (_onclick is not null)
+                    Hitbox.MouseLeftButtonUp -= _onclick;
+                _onclick = (o,e) => { value?.Invoke(); };
+                Hitbox.MouseLeftButtonUp += _onclick;
+            }
+        }
         private Color _AnimTargetColor = Colors.Yellow;
         public Color Color
         {
@@ -35,12 +46,6 @@ namespace SeleniteSeaEditor.controls
                 Plus.Foreground = new SolidColorBrush(value);
                 _AnimTargetColor = value;
             }
-        }
-        public ScopeAddButton(MouseButtonEventHandler OnClickEvent)
-        {
-            InitializeComponent();
-            Hitbox.MouseLeftButtonUp += OnClickEvent;
-            Opacity = 0.05;
         }
         public ScopeAddButton()
         {

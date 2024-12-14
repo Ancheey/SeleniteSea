@@ -11,10 +11,9 @@ namespace SeleniteSeaExecutor
 {
     public static class SSProcess
     {
-        public static ExecutionData Execute(SSBlockScope scope)
+        public static async Task<ExecutionData> Execute(SSBlock scope, ExecutionData data)
         {
-            var data = new ExecutionData();
-            scope.Execute(data);
+            await Task.Run(() => scope.Execute(data));
             return data;
         }
     }

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         ResizeMode="NoResize"
         WindowStyle="None"
-        Title="HelloWindow" Height="150" Width="400" WindowStartupLocation="CenterScreen">
+        Title="HelloWindow" Height="150" Width="400" WindowStartupLocation="CenterScreen" ShowInTaskbar="False">
     <Grid>
         <Image HorizontalAlignment="Left" Height="300" Margin="-30,-80" Source="/output.jpg"/>
         <Border>

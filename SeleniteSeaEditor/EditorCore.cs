@@ -1,5 +1,6 @@
 ﻿using SeleniteSeaCore;
 using SeleniteSeaCore.codeblocks;
+using SeleniteSeaCore.codeblocks.actions;
 using SeleniteSeaCore.variables;
 using SeleniteSeaEditor.controls;
 using SeleniteSeaEditor.controls.Displays;
@@ -15,7 +16,7 @@ namespace SeleniteSeaEditor
     {
         public static string LocalDirectory => AppDomain.CurrentDomain.BaseDirectory;
         public static string WorkingDirectory { get; set; } = "";
-        public static string WorkingFile { get; set; } = "";
+        public static SSBlock? CurrentBlock = null;
 
         //Load functions to it and save last state of the display so we don't have to rebuild it each time we open the script
         public static Dictionary<SSBlock, DisplayBlock?> LoadedFunctions { get; private set; } = [];
@@ -27,7 +28,7 @@ namespace SeleniteSeaEditor
 
 
 
-        public static DisplayBlock? InstantiateTryEditAndGetDisplay(SSBlockScope Parent, Type blocktype)
+        public static DisplayBlock? InstantiateTryEditAndGetDisplay(SSBlockScope Parent, Type blocktype, int index = -1)
         {
             //Try get action data from registry
             if (!EditorRegistry.Actions.TryGetValue(blocktype, out EditorRegistryActionItem? data) || data is null)
@@ -45,7 +46,7 @@ namespace SeleniteSeaEditor
             if (!TryOpenEditor(Block, out bool edited) && edited)
                 return null;
 
-            Parent.AddChild(Block);
+            Parent.AddChild(Block, index);
             return InstantiateDisplay(Block);
         }
 
@@ -81,7 +82,7 @@ namespace SeleniteSeaEditor
                 //Try get the constructor for the editor that takes the block type as param
                 //throw new Exception($"{data.Editor.GetConstructors()[0].GetParameters()[0].ParameterType} Or {block.GetType()}\n {data.Editor.GetConstructors()[0].GetParameters()[0].ParameterType == block.GetType()}");
 
-                var edctor = data.Editor.GetConstructor([block.GetType()]) ?? data.Editor.GetConstructor([typeof(SSBlock)]) ?? data.Editor.GetConstructor([typeof(SSBlockScope)])
+                var edctor = data.Editor.GetConstructor([block.GetType()]) ?? data.Editor.GetConstructor([typeof(SSBlockActionBasic)]) ?? data.Editor.GetConstructor([typeof(SSBlockScope)])
                     ?? throw new InvalidOperationException($"{block.GetType()} editor ({data.Editor}) doesn't contain a constructor allowing that type as a parameter");
                 //check if the editor class is a window
                 if (!typeof(Window).IsAssignableFrom(data.Editor))
@@ -99,6 +100,7 @@ namespace SeleniteSeaEditor
 
             WorkingDirectory = path;
             var files = Directory.GetFiles(path, "*.seascript");
+            LoadedFunctions.Clear();
             foreach (var file in files)
             {
                 var a = SerializationEngine.Deserialize(EditorRegistry.RegisteredTypes.ToDictionary(), file);
@@ -130,6 +132,10 @@ namespace SeleniteSeaEditor
                 }
             }
             return display;
+        }
+        public static void Save(SSBlock block, string dir)
+        {
+            SerializationEngine.Serialize(block, dir + $"\\{block.Title}.seascript");
         }
     }
 }

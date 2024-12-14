@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace SeleniteSeaEditor.controls.Editors
 {
@@ -29,7 +30,8 @@ namespace SeleniteSeaEditor.controls.Editors
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            ToEdit.Name = FnName.Text;
+            ToEdit.Description = FnDesc.Text;
             DialogResult = true;
 
         }

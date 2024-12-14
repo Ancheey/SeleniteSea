@@ -1,12 +1,11 @@
 ﻿using SeleniteSeaCore.codeblocks;
-using SeleniteSeaCore.variables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SeleniteSeaExecutor
+namespace SeleniteSeaCore
 {
     public static class SerializationEngine
     {
@@ -23,7 +22,7 @@ namespace SeleniteSeaExecutor
             ToVisit.Push((ToSerialize, 0));
 
             int previousDepth = 0;
-            while(ToVisit.Count > 0)
+            while (ToVisit.Count > 0)
             {
                 var (block, depth) = ToVisit.Pop();
                 var data = block.GetSerializedMetadata();
@@ -36,7 +35,7 @@ namespace SeleniteSeaExecutor
 
                 writer.WriteLine(block.GetType());
                 writer.WriteLine(data.Length.ToString());
-                foreach( var line in data)
+                foreach (var line in data)
                     writer.WriteLine(line.ToString());
 
                 //Current block can be a parent
@@ -46,6 +45,7 @@ namespace SeleniteSeaExecutor
                     for (int i = scope.Children.Count - 1; i >= 0; i--)
                         ToVisit.Push((scope.Children[i], depth + 1));
                 }
+                previousDepth = depth;
             }
 
             writer.Close();
@@ -57,7 +57,7 @@ namespace SeleniteSeaExecutor
         /// <param name="file"></param>
         /// <returns></returns>
         /// <exception cref="InvalidDataException"></exception>
-        public static SSBlock? Deserialize(Dictionary<string,Type> RegisteredBlocks, string file)
+        public static SSBlock? Deserialize(Dictionary<string, Type> RegisteredBlocks, string file)
         {
             SSBlock? root = null;
             SSBlockScope? CurrentParent = null;
@@ -67,50 +67,55 @@ namespace SeleniteSeaExecutor
             int fileline = 0;
             //Element Creation
             SSBlock? workpiece = null;
-            int metadataLinesLeft = 0;
+
             List<string> metadata = [];
             string? line;
-            while((line = reader.ReadLine())!= null)
+            while ((line = reader.ReadLine()) != null)
             {
                 fileline++;
-                if(metadataLinesLeft == 0 && workpiece != null)
+                if (workpiece != null)
                 {
-                    //apply metadata
-                    workpiece.DeserializeAndApplyMetadata([.. metadata]);
-
                     //if move arrows, then change parent
-                    if(line == "-->")
+                    if (line == "-->")
                     {
                         if (!typeof(SSBlockScope).IsAssignableFrom(workpiece.GetType()))
                             throw new InvalidDataException("Attempted to make a parent of an non child bearing block");
                         CurrentParent = (SSBlockScope)workpiece;
+                        workpiece = null;
+                        metadata.Clear();
+                        continue;
                     }
-                    else if(line == "<--")
+                    else if (line == "<--")
                     {
                         CurrentParent = CurrentParent?.Parent;
+                        workpiece = null;
+                        metadata.Clear();
+                        continue;
                     }
-                    //reset workpiece
                     workpiece = null;
                     metadata.Clear();
-                    continue;
-                }
-                if (metadataLinesLeft > 0)
-                {
-                    metadata.Add(line);
-                    metadataLinesLeft--;
                 }
                 if (workpiece == null) //New workpiece
                 {
-                    if (!RegisteredBlocks.TryGetValue(line,out Type? blocktype))
-                        throw new InvalidDataException($"Deserialization error: Type {line} at line {fileline} not registered. Available types: {string.Join(", ",RegisteredBlocks.Keys)}");
+                    if (!RegisteredBlocks.TryGetValue(line, out Type? blocktype))
+                        throw new InvalidDataException($"Deserialization error: Type {line} at line {fileline} not registered. Available types: {string.Join(", ", RegisteredBlocks.Keys)}");
                     workpiece = Instantiate(blocktype);
                     CurrentParent?.AddChild(workpiece);
+                    int metadataLinesLeft = 0;
                     string? linecount = reader.ReadLine() ?? throw new Exception($"Deserialization error: Type {line} at line {fileline} didn't contain metadata lines count");
                     if (int.TryParse(linecount, out int i))
                         metadataLinesLeft = i;
                     else
                         throw new Exception($"Deserialization error: Type {line} at line {fileline} didn't contain metadata lines count");
                     fileline++;
+                    while (metadataLinesLeft > 0)
+                    {
+                        string? metaline = reader.ReadLine() ?? throw new Exception($"Deserialization error: Type {line} at line {fileline} didn't contain the right amount of metadata");
+                        metadata.Add(metaline);
+                        metadataLinesLeft--;
+                        fileline++;
+                    }
+                    workpiece.DeserializeAndApplyMetadata([.. metadata]);
                 }
                 root ??= workpiece;
             }

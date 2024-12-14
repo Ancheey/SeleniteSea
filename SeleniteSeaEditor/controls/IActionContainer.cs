@@ -9,5 +9,6 @@ namespace SeleniteSeaEditor.controls
     public interface IActionContainer
     {
         public void AddAction(DisplayBlock action, int index);
+        public bool RemoveAction(DisplayBlock action);
     }
 }

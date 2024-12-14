@@ -1,4 +1,5 @@
 ﻿using SeleniteSeaCore.codeblocks;
+using SeleniteSeaCore.codeblocks.actions;
 using SeleniteSeaCore.variables;
 using SeleniteSeaEditor.controls.Displays;
 using SeleniteSeaEditor.controls.Editors;
@@ -34,6 +35,14 @@ namespace SeleniteSeaEditor
                 Createable: false,
                 Moveable: false,
                 Deletable: false));
+            RegisterAction(typeof(SSBlockActionReturnValue), 
+                new("Return", "Ends execution and can return a value",typeof(DisplaySSBlock),typeof(EditorSSBlockActionBasic)));
+            RegisterAction(typeof(SSBlockActionWait),
+                new("Wait", "Waits for a set amount of ms", typeof(DisplaySSBlock), typeof(EditorSSBlockActionBasic)));
+            RegisterAction(typeof(SSBlockActionAdd),
+                new("Add", "Adds numbers and concatenates strings", typeof(DisplaySSBlock), typeof(EditorSSBlockActionBasic)));
+            RegisterAction(typeof(SSBlockActionWrite),
+                new("Write", "Write out an interpolated text", typeof(DisplaySSBlock), typeof(EditorSSBlockActionBasic)));
         }
     }
 

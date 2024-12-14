@@ -22,7 +22,9 @@ namespace SeleniteSeaCore.codeblocks
                 children.Add(child);
             else
                 children.Insert(index,child);
+            child.Parent = this;
         }
+        public bool RemoveChild(SSBlock child) => children.Remove(child);
         /// <summary>
         /// If you're overwritting this in scopes, make sure to stop execution if "Done" is set to true
         /// </summary>
