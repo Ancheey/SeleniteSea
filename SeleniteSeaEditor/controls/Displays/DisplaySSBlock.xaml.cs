@@ -1,19 +1,11 @@
-﻿using SeleniteSeaCore.codeblocks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SeleniteSeaCore;
+using SeleniteSeaCore.codeblocks;
+using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace SeleniteSeaEditor.controls.Displays
 {
@@ -57,7 +49,7 @@ namespace SeleniteSeaEditor.controls.Displays
             if (RegistryData.Deletable)
             {
                 BinIcon.Width = 25;
-                BinIcon.MouseDoubleClick += WrenchIcon_MouseDoubleClick;
+                BinIcon.MouseDoubleClick += BinIcon_MouseDoubleClick;
             }
 
 
@@ -71,13 +63,10 @@ namespace SeleniteSeaEditor.controls.Displays
         }
         private void BinIcon_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (MessageBox.Show("Deletion notice", $"Are you sure you want to delete a block\n{Owned.Title}\nThis action cannot be undone!", MessageBoxButton.OKCancel) != MessageBoxResult.OK)
+            if (MessageBox.Show($"Are you sure you want to delete a block\n{Owned.Title}\nThis action cannot be undone!", "Deletion notice", MessageBoxButton.OKCancel) != MessageBoxResult.OK)
                 return;
             Owned.Parent?.RemoveChild(Owned);
-            if(Parent is not null && Parent is IActionContainer cont)
-            {
-                cont.RemoveAction(this);
-            }
+            Container?.RemoveAction(this);
             
         }
     }

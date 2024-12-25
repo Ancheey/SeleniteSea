@@ -13,6 +13,17 @@ namespace SeleniteSeaCore.codeblocks
 
         private List<SSBlock> children = [];
         public ImmutableList<SSBlock> Children => [.. children];
+        private bool _done = false;
+        public new bool Done
+        {
+            set
+            {
+                _done = value;
+                foreach (SSBlock child in Children)
+                    child.Done = value;
+            }
+            get => _done;
+        }
 
         public void AddChild(SSBlock child, int index = -1) //adjust inherited variables
         {

@@ -5,24 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SeleniteSeaEditor.controls.Editors"
         mc:Ignorable="d"
-        Background="#181924"
-        Title="EditorSSBlockScopeFunction" Height="165" Width="300">
+        Background="#232133"
+        Title="Function Editor" Height="325" Width="400">
     <Grid Margin="20">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
             <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <Label Content="Name:"/>
-        <TextBox x:Name="FnName" Grid.Column="1"/>
-        <Label Content="Description:" Grid.Row="1"/>
-        <TextBox x:Name="FnDesc" Grid.Column="1" Grid.Row="1"/>
-        <Label HorizontalAlignment="Center" Grid.Row="2" Grid.ColumnSpan="2" Content="PH Param Editor"/>
-        <Button Click="Button_Click" Grid.Column="2" Grid.Row="3" Content="Accept"/>
+        <Label Content="Name:" Foreground="LightGray"/>
+        <TextBox x:Name="FnName" Grid.Column="1" Background="#181924" Foreground="LightGray" BorderBrush="Black" Margin="0,5,3,0" Padding="2"/>
+        <Label Content="Description:" Grid.Row="1" Foreground="LightGray"/>
+        <TextBox x:Name="FnDesc" Grid.Column="1" Grid.Row="1" Background="#181924" Foreground="LightGray" BorderBrush="Black" Margin="0,5,3,0" Padding="2"/>
+        <Border Grid.ColumnSpan="2" Grid.Row="2" Margin="3" BorderBrush="Black" BorderThickness="1" Background=" #181924">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalContentAlignment="Center">
+                <StackPanel x:Name="ArgBox" Margin="3,3,3,0">
+                    
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+        <Button Margin="3,-4,0,0" Background="Green" Content="+" BorderBrush="Black" x:Name="AddArgButton" Click="AddArgButton_Click" Grid.Row="3" Width="20" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top"/>
+        <Button Click="Button_Click" Grid.Column="2" Grid.Row="3" Content="Accept" Background="#232133" Foreground="LightGray" BorderBrush="Black" Margin="0,5,3,0" Padding="2"/>
     </Grid>
 </Window>

@@ -13,6 +13,7 @@ namespace SeleniteSeaExecutor
     {
         public static async Task<ExecutionData> Execute(SSBlock scope, ExecutionData data)
         {
+            scope.Done = false;
             await Task.Run(() => scope.Execute(data));
             return data;
         }

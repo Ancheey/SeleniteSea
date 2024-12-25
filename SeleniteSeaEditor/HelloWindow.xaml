@@ -28,7 +28,7 @@
                     <Label HorizontalContentAlignment="Right" Margin="0,-30,30,0"
                             Content="v1" Foreground="#412C63" FontSize="8" FontWeight="Bold"/>
                 </StackPanel>
-                <Label Foreground="#412C63" Content="@Wojciech Czapiga" FontSize="8" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+                <Label Foreground="#412C63" Content="@Ancheey" FontSize="8" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
             </Grid>
         </Border>
     </Grid>

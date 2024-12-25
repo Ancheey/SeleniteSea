@@ -57,6 +57,7 @@ namespace SeleniteSeaEditor.controls.Displays
         {
             ScopeActionsContainer.Children.Insert((index*2) +1, action);
             var additionbutton = new ScopeAddButton();
+            action.Container = this;
             additionbutton.OnClick = () => ClickAddButton(ScopeActionsContainer.Children.IndexOf(additionbutton)/2);
             ScopeActionsContainer.Children.Insert((index * 2) + 2, additionbutton);
         }
@@ -71,7 +72,7 @@ namespace SeleniteSeaEditor.controls.Displays
                 if (type is not null)
                 {
                     //Instantiate and add the display if it isn't null
-                    var block = EditorCore.InstantiateTryEditAndGetDisplay(ownedScope, type);
+                    var block = EditorCore.InstantiateTryEditAndGetDisplay(ownedScope, type, targetindex);
                     if (block is not null)
                         AddAction(block, targetindex);
                 }
@@ -82,6 +83,7 @@ namespace SeleniteSeaEditor.controls.Displays
             var index = ScopeActionsContainer.Children.IndexOf(action);
             if (index == -1)
                 return false;
+            action.Container = null;
             ScopeActionsContainer.Children.RemoveRange(index, 2);
             return true;
         }

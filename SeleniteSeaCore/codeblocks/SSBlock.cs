@@ -11,7 +11,7 @@ namespace SeleniteSeaCore.codeblocks
     public abstract class SSBlock
     {
         public abstract string Title { get;}
-        public bool Done = false;
+        public bool Done { get; set; } = false;
         public SSBlockScope? Parent { get; internal set; } = null;
 
         //No longer needed

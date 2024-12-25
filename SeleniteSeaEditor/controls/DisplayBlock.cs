@@ -10,6 +10,7 @@ namespace SeleniteSeaEditor.controls
 {
     public class DisplayBlock : UserControl
     {
+        public IActionContainer? Container { get; set; }
         protected Color _color;
         public virtual Color Color { get; set; }
         protected DisplayBlock() { }

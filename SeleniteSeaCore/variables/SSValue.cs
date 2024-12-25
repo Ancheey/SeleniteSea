@@ -22,7 +22,6 @@ namespace SeleniteSeaCore.variables
         public string GetInterpolatedValue(Dictionary<string,SSValue> RuntimeVars)
         {
             int loopcounter = 0; //Here to prevent looping statements
-
             string valWithReferences = Data;
             int pointersCount = 1; //start so we can check;
             while (pointersCount > 0 && loopcounter < Debug.REFERENCE_DEPTH)
@@ -51,7 +50,6 @@ namespace SeleniteSeaCore.variables
         public static string InterpolateValue(string value, Dictionary<string, SSValue> RuntimeVars)
         {
             int loopcounter = 0; //Here to prevent looping statements
-
             string valWithReferences = value;
             int pointersCount = 1; //start so we can check;
             while (pointersCount > 0 && loopcounter < Debug.REFERENCE_DEPTH)

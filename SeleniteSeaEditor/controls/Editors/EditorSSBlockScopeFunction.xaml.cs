@@ -26,14 +26,44 @@ namespace SeleniteSeaEditor.controls.Editors
         {
             InitializeComponent();
             ToEdit = toedit;
+            FnName.Text = toedit.Name;
+            FnDesc.Text = toedit.Description;
+
+            foreach(var i in ToEdit.RequestedVariables)
+            {
+                var a = new EditorSSBlockScopeFunctionArgument(i.Key,i.Value.defaultValue,i.Value.description);
+                a.DeleteButton.Click += (s, e) =>
+                {
+                    ArgBox.Children.Remove(a);
+                };
+                ArgBox.Children.Add(a);
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             ToEdit.Name = FnName.Text;
             ToEdit.Description = FnDesc.Text;
+            ToEdit.RequestedVariables = [];
+            foreach(var i in ArgBox.Children)
+            {
+                if (i is not EditorSSBlockScopeFunctionArgument arg)
+                    continue;
+                ToEdit.RequestedVariables.Add(arg.VarName, (arg.VarDescription, arg.VarDefault));
+            }
+
             DialogResult = true;
 
+        }
+
+        private void AddArgButton_Click(object sender, RoutedEventArgs e)
+        {
+            var a = new EditorSSBlockScopeFunctionArgument();
+            a.DeleteButton.Click += (s, e) =>
+            {
+                ArgBox.Children.Remove(a);
+            };
+            ArgBox.Children.Add(a);
         }
     }
 }
