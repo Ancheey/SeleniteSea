@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SeleniteSeaCore.codeblocks.scopes
 {
-    public class SSBlockScopeIterate : SSBlockScope, IContinueable, IBreakable
+    public sealed class SSBlockScopeIterate : SSBlockScope, IContinueable, IBreakable
     {
         public SSValue StartingPoint = new("1");
         public SSValue EndingPoint = new("10");

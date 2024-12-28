@@ -141,7 +141,7 @@ namespace SeleniteSeaEditor
         public static List<EditorMod> LoadedMods { get; } = [];
         static EditorCore()
         {
-            string moddir = @$"{LocalDirectory}\Mods\Editor";
+            string moddir = @$"{LocalDirectory}\Mods";
             if (!Directory.Exists(moddir))
                 Directory.CreateDirectory(moddir);
             //loading assemblies

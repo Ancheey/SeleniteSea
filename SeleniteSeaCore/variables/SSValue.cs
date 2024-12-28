@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SeleniteSeaCore.variables
 {
-    public class SSValue(string data)
+    public sealed class SSValue(string data)
     {
         public string Data { get; set; } = data;
         public bool TryParseNumber(Dictionary<string, SSValue> RuntimeVars,out double value) => double.TryParse(GetInterpolatedValue(RuntimeVars), out value);

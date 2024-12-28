@@ -63,7 +63,7 @@ namespace SeleniteSeaCore.variables
         public abstract int ComparedValues { get; }
         public abstract CompareResults Compare(Dictionary<string, SSValue> RuntimeVars, params SSValue[] args);
     }
-    public class SSValueComparerTypeEqualValue : SSValueComparerType
+    public sealed class SSValueComparerTypeEqualValue : SSValueComparerType
     {
         public override string Text => "{A} has equal to {B}";
 
@@ -76,7 +76,7 @@ namespace SeleniteSeaCore.variables
             return (args[0].GetInterpolatedValue(RuntimeVars) == args[1].GetInterpolatedValue(RuntimeVars)) ? CompareResults.True : CompareResults.False;
         }
     }
-    public class SSValueComparerTypeNotEqualValue : SSValueComparerType
+    public sealed class SSValueComparerTypeNotEqualValue : SSValueComparerType
     {
         public override string Text => "{A} is not equal to {B}";
 
@@ -89,7 +89,7 @@ namespace SeleniteSeaCore.variables
             return (args[0].GetInterpolatedValue(RuntimeVars) != args[1].GetInterpolatedValue(RuntimeVars)) ? CompareResults.True : CompareResults.False;
         }
     }
-    public class SSValueComparerTypeShorterThan : SSValueComparerType
+    public sealed class SSValueComparerTypeShorterThan : SSValueComparerType
     {
         public override string Text => "{A} is shorter than {B}";
 
@@ -102,7 +102,7 @@ namespace SeleniteSeaCore.variables
             return (args[0].GetInterpolatedValue(RuntimeVars).Length < args[1].GetInterpolatedValue(RuntimeVars).Length) ? CompareResults.True : CompareResults.False;
         }
     }
-    public class SSValueComparerTypeShorterOrEqual : SSValueComparerType
+    public sealed class SSValueComparerTypeShorterOrEqual : SSValueComparerType
     {
         public override string Text => "{A} is shorter or equal length to {B}";
 
@@ -115,7 +115,7 @@ namespace SeleniteSeaCore.variables
             return (args[0].GetInterpolatedValue(RuntimeVars).Length <= args[1].GetInterpolatedValue(RuntimeVars).Length) ? CompareResults.True : CompareResults.False;
         }
     }
-    public class SSValueComparerTypeEqualLength : SSValueComparerType
+    public sealed class SSValueComparerTypeEqualLength : SSValueComparerType
     {
         public override string Text => "{A} is equal length to {B}";
 
@@ -128,7 +128,7 @@ namespace SeleniteSeaCore.variables
             return (args[0].GetInterpolatedValue(RuntimeVars).Length == args[1].GetInterpolatedValue(RuntimeVars).Length) ? CompareResults.True : CompareResults.False;
         }
     }
-    public class SSValueComparerTypeLongerThan : SSValueComparerType
+    public sealed class SSValueComparerTypeLongerThan : SSValueComparerType
     {
         public override string Text => "{A} is longer to {B}";
 
@@ -141,7 +141,7 @@ namespace SeleniteSeaCore.variables
             return (args[0].GetInterpolatedValue(RuntimeVars).Length > args[1].GetInterpolatedValue(RuntimeVars).Length) ? CompareResults.True : CompareResults.False;
         }
     }
-    public class SSValueComparerTypeLongerOrEqual : SSValueComparerType
+    public sealed class SSValueComparerTypeLongerOrEqual : SSValueComparerType
     {
         public override string Text => "{A} is longer or equal length to {B}";
 
@@ -154,7 +154,7 @@ namespace SeleniteSeaCore.variables
             return (args[0].GetInterpolatedValue(RuntimeVars).Length >= args[1].GetInterpolatedValue(RuntimeVars).Length) ? CompareResults.True : CompareResults.False;
         }
     }
-    public class SSValueComparerTypeNumericLessThan : SSValueComparerType
+    public sealed class SSValueComparerTypeNumericLessThan : SSValueComparerType
     {
         public override string Text => "{A} is less than {B}";
 
@@ -169,7 +169,7 @@ namespace SeleniteSeaCore.variables
             return CompareResults.NaN;
         }
     }
-    public class SSValueComparerTypeNumericMoreThan : SSValueComparerType
+    public sealed class SSValueComparerTypeNumericMoreThan : SSValueComparerType
     {
         public override string Text => "{A} is greater than {B}";
 
@@ -184,7 +184,7 @@ namespace SeleniteSeaCore.variables
             return CompareResults.NaN;
         }
     }
-    public class SSValueComparerTypeNumericLessOrEqual : SSValueComparerType
+    public sealed class SSValueComparerTypeNumericLessOrEqual : SSValueComparerType
     {
         public override string Text => "{A} is less or equal to {B}";
 
@@ -199,7 +199,7 @@ namespace SeleniteSeaCore.variables
             return CompareResults.NaN;
         }
     }
-    public class SSValueComparerTypeNumericGreaterOrEqual : SSValueComparerType
+    public sealed class SSValueComparerTypeNumericGreaterOrEqual : SSValueComparerType
     {
         public override string Text => "{A} is greater or equal to {B}";
 
@@ -214,7 +214,7 @@ namespace SeleniteSeaCore.variables
             return CompareResults.NaN;
         }
     }
-    public class SSValueComparerTypeVariableExists : SSValueComparerType
+    public sealed class SSValueComparerTypeVariableExists : SSValueComparerType
     {
         public override string Text => "Variable of name {A} exists";
 

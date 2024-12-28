@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SeleniteSeaCore.codeblocks.actions
 {
-    public class SSBlockActionWait : SSBlockActionBasic
+    public sealed class SSBlockActionWait : SSBlockActionBasic
     {
         public SSBlockActionWait() 
         {

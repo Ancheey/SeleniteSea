@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SeleniteSeaCore
 {
-    public class ExecutionData(string dir, Dictionary<string, Type> registeredTypes)
+    public sealed class ExecutionData(string dir, Dictionary<string, Type> registeredTypes)
     {
         public string Directory { get; set; } = dir;
         public string? ReturnValue { get; set; }

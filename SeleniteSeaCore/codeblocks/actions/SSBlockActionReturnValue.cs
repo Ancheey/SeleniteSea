@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SeleniteSeaCore.codeblocks.actions
 {
-    public class SSBlockActionReturnValue : SSBlockActionBasic
+    public sealed class SSBlockActionReturnValue : SSBlockActionBasic
     {
         public SSBlockActionReturnValue()
         {

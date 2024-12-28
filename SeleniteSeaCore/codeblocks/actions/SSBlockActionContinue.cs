@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SeleniteSeaCore.codeblocks.actions
 {
-    public class SSBlockActionContinue : SSBlockActionBasic
+    public sealed class SSBlockActionContinue : SSBlockActionBasic
     {
         public override string Title => "Continue to the next iteration";
 

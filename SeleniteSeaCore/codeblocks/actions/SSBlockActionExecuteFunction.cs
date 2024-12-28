@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SeleniteSeaCore.codeblocks.actions
 {
-    public class SSBlockActionExecuteFunction : SSBlock
+    public sealed class SSBlockActionExecuteFunction : SSBlock
     {
         public string Function { get; set; } = "";
         public SSValue TargetVariable { get; set; } = new("");

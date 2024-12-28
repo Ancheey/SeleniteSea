@@ -3,7 +3,7 @@ using SeleniteSeaCore.interfaces;
 
 namespace SeleniteSeaCore.codeblocks.actions
 {
-    public class SSBlockActionBreak : SSBlockActionBasic
+    public sealed class SSBlockActionBreak : SSBlockActionBasic
     {
         public override string Title => "Break out of a loop";
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SeleniteSeaCore.codeblocks.scopes
 {
-    public class SSBlockScopeWhile : SSBlockScope, IBreakable, IContinueable
+    public sealed class SSBlockScopeWhile : SSBlockScope, IBreakable, IContinueable
     {
         public SSValueComparerType? Comparer { get; set; }
         public List<SSValue> Values { get; set; } = [];

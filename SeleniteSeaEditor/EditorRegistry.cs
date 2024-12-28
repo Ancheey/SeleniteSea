@@ -57,7 +57,7 @@ namespace SeleniteSeaEditor
 
             foreach(var mod in EditorCore.LoadedMods)
             {
-                mod.OnRegister();
+                mod.OnRegisterActions();
             }
         }
     }
