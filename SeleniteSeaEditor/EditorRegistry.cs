@@ -54,6 +54,11 @@ namespace SeleniteSeaEditor
             RegisterAction<SSBlockActionContinue> (new("Continue", "Continue loop to next iteration", typeof(DisplaySSBlock), null, Editable: false));
             RegisterAction<SSBlockActionExecuteFunction> (new("Call Function", "Calls a designated function and saves the return value", typeof(DisplaySSBlock), typeof(EditorSSBlockActionExecuteFunction)));
 
+
+            foreach(var mod in EditorCore.LoadedMods)
+            {
+                mod.OnRegister();
+            }
         }
     }
 

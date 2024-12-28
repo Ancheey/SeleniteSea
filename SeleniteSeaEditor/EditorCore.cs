@@ -4,6 +4,7 @@ using SeleniteSeaCore.codeblocks.actions;
 using SeleniteSeaCore.variables;
 using SeleniteSeaEditor.controls;
 using SeleniteSeaEditor.controls.Displays;
+using SeleniteSeaEditor.modding;
 using SeleniteSeaExecutor;
 using System.IO;
 using System.Reflection;
@@ -136,6 +137,33 @@ namespace SeleniteSeaEditor
         public static void Save(SSBlock block, string dir)
         {
             SerializationEngine.Serialize(block, dir + $"\\{block.Title}.seascript");
+        }
+        public static List<EditorMod> LoadedMods { get; } = [];
+        static EditorCore()
+        {
+            string moddir = @$"{LocalDirectory}\Mods\Editor";
+            if (!Directory.Exists(moddir))
+                Directory.CreateDirectory(moddir);
+            //loading assemblies
+            try
+            {
+                var dlls = Directory.GetFiles(moddir, "*.dll");
+                foreach(var dll in dlls)
+                {
+                    Assembly a = Assembly.LoadFrom(dll);
+                    var derivedTypes = a.GetTypes().Where(t => t.IsClass && !t.IsAbstract && t.IsAssignableTo(typeof(EditorMod)));
+                    if (derivedTypes.Count() != 1)
+                        throw new InvalidOperationException($"Found {derivedTypes.Count()} mod declarations in {dll}. Only one allowed per mod file");
+                    var instance = (EditorMod?)Activator.CreateInstance(derivedTypes.First()) 
+                        ?? throw new ArgumentException($"Mod {derivedTypes.First()} from {dll} couldn't be declared. Instance creation failed.");
+                    instance.OnLoad();
+                    LoadedMods.Add(instance);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Log(StatusCode.Error, e.ToString(), null);
+            }
         }
     }
 }

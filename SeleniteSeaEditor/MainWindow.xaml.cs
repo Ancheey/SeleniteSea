@@ -31,7 +31,8 @@ namespace SeleniteSeaEditor
 
 
             InitializeComponent();
-
+            if(EditorCore.LoadedMods.Count == 0)
+                ModLister.Visibility = Visibility.Collapsed;
             Debug.OnDebugMessageEvent += (status, text, caller) =>
             {
                 Dispatcher.Invoke(() =>
@@ -173,6 +174,11 @@ namespace SeleniteSeaEditor
         {
             if(CurrentlyExecuted is not null)
                 CurrentlyExecuted.Done = true;
+        }
+
+        private void ModLister_Click(object sender, RoutedEventArgs e)
+        {
+            new ModList().ShowDialog();
         }
     }
 }

@@ -26,7 +26,9 @@
                     <Button x:Name="RunButton" Width="25" Background="Transparent" Foreground="LightGray" Content="➤" Margin="2" Click="Button_Click_2" />
                     <Button x:Name="HaltButton" Width="25" Background="Transparent" Foreground="LightGray" Content="◼" Margin="2" ToolTip="Stop Execution" Click="Button_Click_3" IsEnabled="False"/>
                     <Button x:Name="SaveButton" Width="25" Background="Transparent" Foreground="LightGray" Content="💾" Margin="2" ToolTip="Save" Click="Button_Click_1" IsEnabled="False"/>
+                    
                     <Button Width="25" Background="Transparent" Foreground="LightGray" Content="📁" Margin="2" ToolTip="Load" DockPanel.Dock="Right" x:Name="ProjectSelectButton" Click="ProjectSelectButton_Click"/>
+                    <Button Width="25" Background="Transparent" Foreground="LightGray" Content="Mod" Margin="2" ToolTip="Load" DockPanel.Dock="Right" x:Name="ModLister" Click="ModLister_Click"/>
                     <Label/><!--Filler-->
                 </DockPanel>
             </Border>
