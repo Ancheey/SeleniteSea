@@ -28,6 +28,7 @@ namespace SeleniteSeaEditor.controls.Displays
                 PointerIcon.Foreground = brush;
                 WrenchIcon.Foreground = brush;
                 BlockTitle.Foreground = brush;
+                BinIcon.Foreground = brush;
             }
         }
         public DisplaySSBlock(SSBlock ownedblock)

@@ -18,10 +18,7 @@ namespace SeleniteSeaCore.codeblocks.actions
 
         public override bool Execute(ExecutionData data)
         {
-            if (Parent is not null)
-                Parent.Done = true;
-            else
-                return false;
+            Done = true;
             data.ReturnValue = PublicValues["Return Value"].GetInterpolatedValue(data.RuntimeVariables);
             return true;
         }

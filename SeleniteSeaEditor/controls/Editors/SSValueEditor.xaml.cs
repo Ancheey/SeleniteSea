@@ -27,5 +27,6 @@ namespace SeleniteSeaEditor.controls.Editors
             ValueText.Text = value;
         }
         public string Value => ValueText.Text;
+        public string Title => ValueName.Content.ToString()??"";
     }
 }

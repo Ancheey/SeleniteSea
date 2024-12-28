@@ -35,7 +35,18 @@ namespace SeleniteSeaCore.codeblocks
             }
             return [.. data];
         }
-
+        public override bool Execute(ExecutionData data)
+        {
+            foreach (var item in RequestedVariables)
+            {
+                
+                if (data.RuntimeVariables.ContainsKey(item.Key)) {
+                    continue;
+                }
+                data.RuntimeVariables.Add(item.Key, new(item.Value.defaultValue));
+            }
+            return base.Execute(data);
+        }
 
         public override void DeserializeAndApplyMetadata(params string[] args)
         {

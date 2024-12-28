@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 
 namespace SeleniteSeaCore
 {
-    public class ExecutionData
+    public class ExecutionData(string dir, Dictionary<string, Type> registeredTypes)
     {
-        public ExecutionData(string dir, Dictionary<string, Type> registeredTypes) { }
-        public string Directory { get; set; } = "";
+        public string Directory { get; set; } = dir;
         public string? ReturnValue { get; set; }
         public Dictionary<string,SSValue> RuntimeVariables { get; set; } = [];
-        public Dictionary<string, Type> RegisteredTypes { get; set; } = [];
+        public Dictionary<string, Type> RegisteredTypes { get; set; } = registeredTypes;
     }
 }

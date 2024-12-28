@@ -1,0 +1,26 @@
+﻿<Window x:Class="SeleniteSeaEditor.controls.Editors.EditorSSBlockActionExecuteFunction"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SeleniteSeaEditor.controls.Editors"
+        mc:Ignorable="d"
+        Background="#232133"
+        Title="Execute Function" Height="350" Width="300">
+    <DockPanel Margin="10">
+        <StackPanel DockPanel.Dock="Top">
+            <Label Content="Function" DockPanel.Dock="Top" Foreground="LightGray"/>
+            <ComboBox x:Name="FunctionName" Background="#181924" Foreground="LightGray" SelectionChanged="FunctionName_SelectionChanged" IsEditable="True"/>
+        </StackPanel>
+        <Button DockPanel.Dock="Bottom" Content="Accept" Background="#232133" Foreground="LightGray" BorderBrush="Black" Margin="0,5,0,0" HorizontalAlignment="Left" Padding="2" Click="Button_Click"/>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+            <Label Content="Save returned value as:" Foreground="LightGray"/>
+            <TextBox Width="70" Background="#181924" BorderBrush="Black" Foreground="LightGray" x:Name="VarReturn" ToolTip="This field is interpolated at runtime. You can build a var name using other variable values. (eg. Variable[{nmb}] => Variable[0] if %nmb% have the value of 0)"/>
+        </StackPanel>
+        <Border Margin="0,5,0,0" BorderThickness="1" BorderBrush="Black" Background="#181924">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel x:Name="ArgBox"/>
+            </ScrollViewer>
+        </Border>
+    </DockPanel>
+</Window>

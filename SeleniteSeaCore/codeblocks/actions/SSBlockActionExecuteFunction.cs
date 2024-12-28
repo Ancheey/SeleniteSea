@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SeleniteSeaCore.codeblocks.actions
 {
-    internal class SSBlockActionExecuteFunction : SSBlock
+    public class SSBlockActionExecuteFunction : SSBlock
     {
         public string Function { get; set; } = "";
         public SSValue TargetVariable { get; set; } = new("");
@@ -18,10 +18,10 @@ namespace SeleniteSeaCore.codeblocks.actions
             {
                 List<string> args = [];
                 foreach (var arg in PassedValues)
-                    args.Add($"{arg.Key}: {arg.Value}");
+                    args.Add($"{arg.Key}: {arg.Value.Data}");
                 if(TargetVariable.Data == "") 
                     return $"Run {Function}({string.Join(", ",args)})";
-                return $"Run {Function} and save value as {TargetVariable}";
+                return $"Run {Function}({string.Join(", ", args)}) and save value as {TargetVariable.Data}";
             }
         }
 
@@ -30,14 +30,15 @@ namespace SeleniteSeaCore.codeblocks.actions
 
             Function = args[0];
             TargetVariable.Data = args[1];
+            for (int i = 2; args.Length >= i + 1; i += 2)
+                PassedValues.Add(args[i], new(args[i + 1]));
         }
 
         public override bool Execute(ExecutionData data)
         {
             //deserialize block
-            SSBlock? block = SerializationEngine.Deserialize(data.RegisteredTypes, @$"{data.Directory}\{Function}.seascript");
-            if (block == null)
-                throw new InvalidDataException("Deserialization during a call returned null");
+            SSBlock? block = SerializationEngine.Deserialize(data.RegisteredTypes, @$"{data.Directory}\{Function}.seascript") 
+                ?? throw new InvalidDataException("Deserialization during a call returned null");
             //build execution data
             ExecutionData ed = new(data.Directory, data.RegisteredTypes);
             foreach (var arg in PassedValues)
@@ -56,6 +57,15 @@ namespace SeleniteSeaCore.codeblocks.actions
             return true;
         }
 
-        public override string[] GetSerializedMetadata() => [Function, TargetVariable.Data];
+        public override string[] GetSerializedMetadata()
+        {
+            List<string> args = [Function, TargetVariable.Data];
+            foreach (var arg in PassedValues)
+            {
+                args.Add(arg.Key);
+                args.Add(arg.Value.Data);
+            }
+            return args.ToArray();
+        }
     }
 }

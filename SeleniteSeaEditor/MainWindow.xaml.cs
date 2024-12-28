@@ -127,33 +127,52 @@ namespace SeleniteSeaEditor
                 BlockCreation(block.Key);
         }
 
+        /// <summary>
+        /// save button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             if (EditorCore.CurrentBlock is not null)
+            {
                 EditorCore.Save(EditorCore.CurrentBlock, EditorCore.WorkingDirectory);
+                LoadProjectDirectory(EditorCore.WorkingDirectory);
+            }
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             if (EditorCore.CurrentBlock is not null)
             {
-                Debug.Log(StatusCode.Success, $"Executing..", null);
                 RunButton.IsEnabled = false;
+                HaltButton.IsEnabled = true;
+                CurrentlyExecuted = EditorCore.CurrentBlock;
                 ExecuteTask(EditorCore.CurrentBlock);
             }
         }
+        private SSBlock? CurrentlyExecuted = null;
         private async void ExecuteTask(SSBlock s)
         {
             try
             {
-                var result = await SSProcess.Execute(s, new(EditorCore.WorkingDirectory,EditorRegistry.RegisteredTypes.ToDictionary()));
-                Debug.Log(StatusCode.Success,$"Execution ended with result: {result.ReturnValue}",null);
+                var result = await SSProcess.Execute(s, EditorRegistry.RegisteredTypes.ToDictionary(), EditorCore.WorkingDirectory);
+                if (result.ReturnValue is not null)
+                    Debug.Log(StatusCode.Success, $"Execution ended with result: {result.ReturnValue}", null);
+                else
+                    Debug.Log(StatusCode.Success, $"Execution ended", null);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                Debug.Log(StatusCode.Error,e.ToString(),null);
+                Debug.Log(StatusCode.Error, e.ToString(), null);
             }
-            Dispatcher.Invoke(() => RunButton.IsEnabled = true);
+            Dispatcher.Invoke(() => { RunButton.IsEnabled = true; HaltButton.IsEnabled = false; }); 
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            if(CurrentlyExecuted is not null)
+                CurrentlyExecuted.Done = true;
         }
     }
 }

@@ -32,6 +32,7 @@ namespace SeleniteSeaEditor.controls.Displays
                 _color = value;
                 PrimaryBorder.Color = value;
                 ActionTitle.Foreground = new SolidColorBrush(value);
+                ActionParams.Foreground = new SolidColorBrush(value);
                 Background = new SolidColorBrush(value)
                 {
                     Opacity = 0.02
@@ -39,16 +40,20 @@ namespace SeleniteSeaEditor.controls.Displays
                 foreach (var i in ScopeActionsContainer.Children)
                     if (i is ScopeAddButton a)
                         a.Color = value;
+                    else if (i is DisplayBlock db && i is not IActionContainer)
+                        db.Color = value;
             }
         }
         public DisplaySSBlockScopeFunction(SSBlockScopeFunction scope)
         {
             ownedScope = scope;
             InitializeComponent();
+            Color = ScopeColorAid.GetNext();
 
             Refresh();
             var additionbutton = new ScopeAddButton();
             additionbutton.OnClick = () => ClickAddButton(ScopeActionsContainer.Children.IndexOf(additionbutton)/2);
+            additionbutton.Color = Color;
             ScopeActionsContainer.Children.Add(additionbutton);
             AdjustRequestedVarsVisual();
             ActionParams.MouseUp += (o, e) => RunEditor();
@@ -59,7 +64,10 @@ namespace SeleniteSeaEditor.controls.Displays
             var additionbutton = new ScopeAddButton();
             action.Container = this;
             additionbutton.OnClick = () => ClickAddButton(ScopeActionsContainer.Children.IndexOf(additionbutton)/2);
+            additionbutton.Color = Color;
             ScopeActionsContainer.Children.Insert((index * 2) + 2, additionbutton);
+            if (action is not IActionContainer)
+                action.Color = Color;
         }
         //This method is added as an onClick for all Add buttons
         public void ClickAddButton(int targetindex)
@@ -94,7 +102,7 @@ namespace SeleniteSeaEditor.controls.Displays
         }
         public void RunEditor()
         {
-            Debug.Log(StatusCode.Info,EditorCore.TryOpenEditor(ownedScope, out _).ToString(),null);
+            EditorCore.TryOpenEditor(ownedScope, out _);
 
             Refresh();
         }

@@ -29,10 +29,10 @@ namespace SeleniteSeaCore.variables
                 //This loops till it doesn't find any more references in the text or has reached the limit
                 pointersCount = 0;
                 foreach (var var in RuntimeVars)
-                    if (valWithReferences.Contains($"@{var.Key}@"))
+                    if (valWithReferences.Contains($"{{{var.Key}}}"))
                     {
                         pointersCount++;
-                        valWithReferences = valWithReferences.Replace($"@{var.Key}@", var.Value.Data);//inserting raw data. Don't want recursion in here
+                        valWithReferences = valWithReferences.Replace($"{{{var.Key}}}", var.Value.Data);//inserting raw data. Don't want recursion in here
                     }
                 //Infinite pointer loop safety measure
                 loopcounter++;
@@ -57,16 +57,17 @@ namespace SeleniteSeaCore.variables
                 //This loops till it doesn't find any more references in the text or has reached the limit
                 pointersCount = 0;
                 foreach (var var in RuntimeVars)
-                    if (valWithReferences.Contains($"@{var.Key}@"))
+                    if (valWithReferences.Contains($"{{{var.Key}}}"))
                     {
                         pointersCount++;
-                        valWithReferences = valWithReferences.Replace($"@{var.Key}@", var.Value.Data);//inserting raw data. Don't want recursion in here
+                        valWithReferences = valWithReferences.Replace($"{{{var.Key}}}", var.Value.Data);//inserting raw data. Don't want recursion in here
                     }
                 //Infinite pointer loop safety measure
                 loopcounter++;
             }
             return valWithReferences;
         }
+        public override string ToString() => Data;
         public enum ValueType
         {
             Boolean,

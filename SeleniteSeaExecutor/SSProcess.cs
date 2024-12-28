@@ -11,10 +11,18 @@ namespace SeleniteSeaExecutor
 {
     public static class SSProcess
     {
-        public static async Task<ExecutionData> Execute(SSBlock scope, ExecutionData data)
+        public static async Task<ExecutionData> Execute(SSBlock scope, Dictionary<string,Type> RegisteredTypes, string WorkingDirectory)
         {
+            var data = new ExecutionData(WorkingDirectory, RegisteredTypes);
             scope.Done = false;
-            await Task.Run(() => scope.Execute(data));
+
+            await Task.Run(() =>
+            {
+                lock (data)
+                {
+                    scope.Execute(data);
+                }
+            });
             return data;
         }
     }

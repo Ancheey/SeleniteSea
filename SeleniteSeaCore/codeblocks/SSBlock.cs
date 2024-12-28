@@ -11,7 +11,7 @@ namespace SeleniteSeaCore.codeblocks
     public abstract class SSBlock
     {
         public abstract string Title { get;}
-        public bool Done { get; set; } = false;
+        public virtual bool Done { get; set; } = false;
         public SSBlockScope? Parent { get; internal set; } = null;
 
         //No longer needed
@@ -56,5 +56,6 @@ namespace SeleniteSeaCore.codeblocks
 
         public abstract string[] GetSerializedMetadata();
         public abstract void DeserializeAndApplyMetadata(params string[] args);
+        public override string ToString() => Title;
     }
 }

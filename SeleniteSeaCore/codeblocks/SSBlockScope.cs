@@ -14,14 +14,14 @@ namespace SeleniteSeaCore.codeblocks
         private List<SSBlock> children = [];
         public ImmutableList<SSBlock> Children => [.. children];
         private bool _done = false;
-        public new bool Done
+        public override bool Done
         {
             set
             {
                 _done = value;
                 foreach (SSBlock child in Children)
                     child.Done = value;
-            }
+                }
             get => _done;
         }
 
@@ -45,14 +45,13 @@ namespace SeleniteSeaCore.codeblocks
             {
                 foreach (var item in children)
                 {
-                    if (Done)
-                    {
-                        if(Parent is not null)
-                            Parent.Done = true;
-                        return true;
-                    }
                     if (!item.Execute(data))
                         return false;
+                    if (item.Done)
+                    {
+                        Done = true;
+                        break;
+                    }
                 }
                 return true;
             }

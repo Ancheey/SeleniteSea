@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SeleniteSeaCore.codeblocks;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,13 +35,13 @@ namespace SeleniteSeaEditor.controls
                     //Window was closing anyway
                 }
             };
-            foreach(var action in EditorRegistry.Actions.Where(a=>a.Value.Createable))
+            foreach(var action in EditorRegistry.Actions.Where(a=>a.Value.Createable).OrderBy(k=>k.Key.IsAssignableTo(typeof(SSBlockScope))))
             {
                 var item = new ListBoxItem()
                 {
-                    Foreground = new SolidColorBrush(Colors.Yellow),
                     Content = $"{action.Value.Name}: {action.Value.Description}"
                 };
+                item.Foreground = new SolidColorBrush(action.Key.IsAssignableTo(typeof(SSBlockScope))?Colors.Yellow:Colors.OrangeRed);
                 item.MouseDoubleClick += (o, e) => { Result = action.Key; DialogResult = true; Close(); };
                 ActionSelectionListbox.Items.Add(item);
                 

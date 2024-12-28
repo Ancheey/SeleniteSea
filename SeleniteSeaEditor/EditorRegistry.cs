@@ -1,5 +1,6 @@
 ﻿using SeleniteSeaCore.codeblocks;
 using SeleniteSeaCore.codeblocks.actions;
+using SeleniteSeaCore.codeblocks.scopes;
 using SeleniteSeaCore.variables;
 using SeleniteSeaEditor.controls.Displays;
 using SeleniteSeaEditor.controls.Editors;
@@ -20,29 +21,39 @@ namespace SeleniteSeaEditor
         private readonly static Dictionary<string, Type> _registeredTypes = [];
         public static ImmutableDictionary<string, Type> RegisteredTypes => _registeredTypes.ToImmutableDictionary();
 
-        public static void RegisterAction(Type action, EditorRegistryActionItem data)
+        public static void RegisterAction<T>(EditorRegistryActionItem data) where T : SSBlock
         {
-            ActionData.Add(action, data);
-            _registeredTypes.Add(action.ToString(), action);
+            ActionData.Add(typeof(T), data);
+            _registeredTypes.Add(typeof(T).ToString(), typeof(T));
         }
-
         static EditorRegistry() 
         {
 
-            RegisterAction(typeof(SSBlockScopeFunction),
-                new EditorRegistryActionItem("Function", "A scope that can return a value", typeof(DisplaySSBlockScopeFunction), typeof(EditorSSBlockScopeFunction),
+            RegisterAction<SSBlockScopeFunction>(new EditorRegistryActionItem("Function", "A scope that can return a value", typeof(DisplaySSBlockScopeFunction), typeof(EditorSSBlockScopeFunction),
                 Editable: true,
                 Createable: false,
                 Moveable: false,
                 Deletable: false));
-            RegisterAction(typeof(SSBlockActionReturnValue), 
-                new("Return", "Ends execution and can return a value",typeof(DisplaySSBlock),typeof(EditorSSBlockActionBasic)));
-            RegisterAction(typeof(SSBlockActionWait),
-                new("Wait", "Waits for a set amount of ms", typeof(DisplaySSBlock), typeof(EditorSSBlockActionBasic)));
-            RegisterAction(typeof(SSBlockActionAdd),
-                new("Add", "Adds numbers and concatenates strings", typeof(DisplaySSBlock), typeof(EditorSSBlockActionBasic)));
-            RegisterAction(typeof(SSBlockActionWrite),
-                new("Write", "Write out an interpolated text", typeof(DisplaySSBlock), typeof(EditorSSBlockActionBasic)));
+            RegisterAction<SSBlockScopeWhile>(new EditorRegistryActionItem("While", "A scope that loops while set comparison is true", typeof(DisplaySSBlockScope), typeof(EditorSSBlockScopeWhile),
+                Editable: true,
+                Createable: true,
+                Moveable: false,
+                Deletable: true));
+            RegisterAction<SSBlockScopeIterate>(new EditorRegistryActionItem("Iterator", "A scope that loops from point A till point B, where both are numbers", typeof(DisplaySSBlockScope), typeof(EditorSSBlockScopeIterator),
+                Editable: true,
+                Createable: true,
+                Moveable: false,
+                Deletable: true));
+            RegisterAction<SSBlockActionReturnValue>(new("Return", "Ends execution and can return a value",typeof(DisplaySSBlock),typeof(EditorSSBlockActionBasic)));
+            RegisterAction<SSBlockActionWait>(new("Wait", "Waits for a set amount of ms", typeof(DisplaySSBlock), typeof(EditorSSBlockActionBasic)));
+            RegisterAction<SSBlockActionAdd>(new("Add", "Adds numbers and concatenates strings", typeof(DisplaySSBlock), typeof(EditorSSBlockActionBasic)));
+            RegisterAction<SSBlockActionWrite> (new("Write", "Write out an interpolated text", typeof(DisplaySSBlock), typeof(EditorSSBlockActionBasic)));
+            RegisterAction<SSBlockActionSet> (new("Set", "Set a variable to a value", typeof(DisplaySSBlock), typeof(EditorSSBlockActionBasic)));
+            RegisterAction<SSBlockActionSetInterpolated> (new("InSet", "Set a variable to an interpolated value (removes references)", typeof(DisplaySSBlock), typeof(EditorSSBlockActionBasic)));
+            RegisterAction<SSBlockActionBreak> (new("Break", "Break out of a loop", typeof(DisplaySSBlock), null, Editable: false));
+            RegisterAction<SSBlockActionContinue> (new("Continue", "Continue loop to next iteration", typeof(DisplaySSBlock), null, Editable: false));
+            RegisterAction<SSBlockActionExecuteFunction> (new("Call Function", "Calls a designated function and saves the return value", typeof(DisplaySSBlock), typeof(EditorSSBlockActionExecuteFunction)));
+
         }
     }
 

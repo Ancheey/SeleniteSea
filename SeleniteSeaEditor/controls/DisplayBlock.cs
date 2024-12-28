@@ -13,6 +13,8 @@ namespace SeleniteSeaEditor.controls
         public IActionContainer? Container { get; set; }
         protected Color _color;
         public virtual Color Color { get; set; }
-        protected DisplayBlock() { }
+        protected DisplayBlock() 
+        {}
+
     }
 }
