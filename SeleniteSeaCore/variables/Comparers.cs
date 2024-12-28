@@ -41,6 +41,9 @@ namespace SeleniteSeaCore.variables
             Register<SSValueComparerTypeNumericLessOrEqual>();
             Register<SSValueComparerTypeNumericGreaterOrEqual>();
             Register<SSValueComparerTypeVariableExists>();
+            Register<SSValueComparerTypeVariableNotExists>();
+            Register<SSValueComparerTypeIsValueNumber>();
+            Register<SSValueComparerTypeIsValueNan>();
         }
     }
     public enum CompareResults
@@ -225,6 +228,51 @@ namespace SeleniteSeaCore.variables
             if (args.Length < ComparedValues)
                 return CompareResults.NeV;
             if (RuntimeVars.ContainsKey(args[0].GetInterpolatedValue(RuntimeVars)))
+                return CompareResults.True;
+            return CompareResults.False;
+        }
+    }
+    public sealed class SSValueComparerTypeVariableNotExists : SSValueComparerType
+    {
+        public override string Text => "Variable of name {A} doesnt exists";
+
+        public override int ComparedValues => 1;
+
+        public override CompareResults Compare(Dictionary<string, SSValue> RuntimeVars, params SSValue[] args)
+        {
+            if (args.Length < ComparedValues)
+                return CompareResults.NeV;
+            if (!RuntimeVars.ContainsKey(args[0].GetInterpolatedValue(RuntimeVars)))
+                return CompareResults.True;
+            return CompareResults.False;
+        }
+    }
+    public sealed class SSValueComparerTypeIsValueNumber : SSValueComparerType
+    {
+        public override string Text => "Value {A} is a number";
+
+        public override int ComparedValues => 1;
+
+        public override CompareResults Compare(Dictionary<string, SSValue> RuntimeVars, params SSValue[] args)
+        {
+            if (args.Length < ComparedValues)
+                return CompareResults.NeV;
+            if (args[0].TryParseNumber(RuntimeVars,out _))
+                return CompareResults.True;
+            return CompareResults.False;
+        }
+    }
+    public sealed class SSValueComparerTypeIsValueNan : SSValueComparerType
+    {
+        public override string Text => "Value {A} is not a number";
+
+        public override int ComparedValues => 1;
+
+        public override CompareResults Compare(Dictionary<string, SSValue> RuntimeVars, params SSValue[] args)
+        {
+            if (args.Length < ComparedValues)
+                return CompareResults.NeV;
+            if (!args[0].TryParseNumber(RuntimeVars, out _))
                 return CompareResults.True;
             return CompareResults.False;
         }

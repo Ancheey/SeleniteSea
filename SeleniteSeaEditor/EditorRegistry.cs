@@ -1,15 +1,9 @@
 ﻿using SeleniteSeaCore.codeblocks;
 using SeleniteSeaCore.codeblocks.actions;
 using SeleniteSeaCore.codeblocks.scopes;
-using SeleniteSeaCore.variables;
 using SeleniteSeaEditor.controls.Displays;
 using SeleniteSeaEditor.controls.Editors;
-using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SeleniteSeaEditor
 {
@@ -40,6 +34,11 @@ namespace SeleniteSeaEditor
                 Moveable: false,
                 Deletable: true));
             RegisterAction<SSBlockScopeIterate>(new EditorRegistryActionItem("Iterator", "A scope that loops from point A till point B, where both are numbers", typeof(DisplaySSBlockScope), typeof(EditorSSBlockScopeIterator),
+                Editable: true,
+                Createable: true,
+                Moveable: false,
+                Deletable: true));
+            RegisterAction<SSBlockScopeIf>(new EditorRegistryActionItem("If", "A scope that executes if a set comparison is true", typeof(DisplaySSBlockScope), typeof(EditorSSBlockScopeIf),
                 Editable: true,
                 Createable: true,
                 Moveable: false,

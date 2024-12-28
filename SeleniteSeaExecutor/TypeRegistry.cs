@@ -19,6 +19,7 @@ namespace SeleniteSeaExecutor
             {
                 RegisterType<SSBlockScopeFunction>();
                 RegisterType<SSBlockScopeIterate>();
+                RegisterType<SSBlockScopeIf>();
                 RegisterType<SSBlockScopeWhile>();
                 RegisterType<SSBlockActionAdd>();
                 RegisterType<SSBlockActionBreak>();
