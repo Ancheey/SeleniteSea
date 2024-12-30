@@ -1,6 +1,7 @@
 ﻿
 using SeleniteSeaCore;
 using SeleniteSeaExecutor;
+using SeleniteSeaExecutor.modding;
 using System.Reflection.Metadata;
 using System.Runtime.InteropServices;
 [DllImport("kernel32.dll")]

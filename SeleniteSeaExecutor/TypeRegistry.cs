@@ -2,6 +2,7 @@
 using SeleniteSeaCore.codeblocks;
 using SeleniteSeaCore.codeblocks.actions;
 using SeleniteSeaCore.codeblocks.scopes;
+using SeleniteSeaExecutor.modding;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;

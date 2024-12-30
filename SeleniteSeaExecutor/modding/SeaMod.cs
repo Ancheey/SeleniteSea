@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SeleniteSeaExecutor
+namespace SeleniteSeaExecutor.modding
 {
     public abstract class SeaMod
     {
@@ -23,7 +23,7 @@ namespace SeleniteSeaExecutor
         /// Won't be executed on the Editor Side
         /// </summary>
         public abstract void OnRegisterExecutor();
-        public virtual void BeforeExecution() {}
-        public virtual void AfterExecution() {}
+        public virtual void BeforeExecution() { }
+        public virtual void AfterExecution() { }
     }
 }

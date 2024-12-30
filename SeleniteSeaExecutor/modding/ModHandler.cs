@@ -6,10 +6,10 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SeleniteSeaExecutor
+namespace SeleniteSeaExecutor.modding
 {
     internal static class ModHandler
-    { 
+    {
         public static List<SeaMod> LoadedMods { get; } = [];
         public static bool LoadMods()
         {
