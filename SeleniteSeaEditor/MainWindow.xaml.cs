@@ -31,8 +31,9 @@ namespace SeleniteSeaEditor
 
 
             InitializeComponent();
-            if(EditorCore.LoadedMods.Count == 0)
-                ModLister.Visibility = Visibility.Collapsed;
+
+            
+
             Debug.OnDebugMessageEvent += (status, text, caller) =>
             {
                 Dispatcher.Invoke(() =>
@@ -42,10 +43,15 @@ namespace SeleniteSeaEditor
                 });
             };
 
+            EditorCore.LoadMods();
+            if (EditorCore.LoadedMods.Count == 0)
+                ModLister.Visibility = Visibility.Collapsed;
+
+
             ProjectSelectWindow dialog = new();
             if (dialog.ShowDialog() == true)
             {
-                EditorCore.WorkingDirectory = dialog.SelectedPath;
+                ExeCore.WorkingDirectory = dialog.SelectedPath;
                 try
                 {
                     LoadProjectDirectory(dialog.SelectedPath);
@@ -56,6 +62,8 @@ namespace SeleniteSeaEditor
                     LogConsole.ScrollToEnd();
                 }
             }
+
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -68,7 +76,7 @@ namespace SeleniteSeaEditor
             ProjectSelectWindow dialog = new();
             if(dialog.ShowDialog() == true)
             {
-                EditorCore.WorkingDirectory = dialog.SelectedPath;
+                ExeCore.WorkingDirectory = dialog.SelectedPath;
                 LoadProjectDirectory(dialog.SelectedPath);
             }
         }
@@ -137,8 +145,8 @@ namespace SeleniteSeaEditor
         {
             if (EditorCore.CurrentBlock is not null)
             {
-                EditorCore.Save(EditorCore.CurrentBlock, EditorCore.WorkingDirectory);
-                LoadProjectDirectory(EditorCore.WorkingDirectory);
+                EditorCore.Save(EditorCore.CurrentBlock, ExeCore.WorkingDirectory);
+                LoadProjectDirectory(ExeCore.WorkingDirectory);
             }
         }
 
@@ -157,7 +165,9 @@ namespace SeleniteSeaEditor
         {
             try
             {
-                var result = await SSProcess.Execute(s, EditorRegistry.RegisteredTypes.ToDictionary(), EditorCore.WorkingDirectory);
+                foreach (var mod in EditorCore.LoadedMods)
+                    mod.BeforeExecution();
+                var result = await SSProcess.Execute(s, EditorRegistry.RegisteredTypes.ToDictionary(), ExeCore.WorkingDirectory);
                 if (result.ReturnValue is not null)
                     Debug.Log(StatusCode.Success, $"Execution ended with result: {result.ReturnValue}", null);
                 else
@@ -167,7 +177,18 @@ namespace SeleniteSeaEditor
             {
                 Debug.Log(StatusCode.Error, e.ToString(), null);
             }
-            Dispatcher.Invoke(() => { RunButton.IsEnabled = true; HaltButton.IsEnabled = false; }); 
+            Dispatcher.Invoke(() => { RunButton.IsEnabled = true; HaltButton.IsEnabled = false; });
+            foreach (var mod in EditorCore.LoadedMods)
+            {
+                try
+                {
+                    mod.AfterExecution();
+                }
+                catch(Exception e)
+                {
+                    Debug.Log(StatusCode.Error, $"[{mod.Name}] "+ e.ToString(), null);
+                }
+            }
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)

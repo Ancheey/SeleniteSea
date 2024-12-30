@@ -15,12 +15,15 @@ namespace SeleniteSeaExecutor
         /// <summary>
         /// Runs first, when editor core is loading the mod
         /// </summary>
-        public abstract void OnLoad();
+        public virtual void OnLoad() { }
+        public virtual void OnUnload() { }
         /// <summary>
         /// Register your types here for an Executor
         /// TypeRegistry for Executor only
         /// Won't be executed on the Editor Side
         /// </summary>
         public abstract void OnRegisterExecutor();
+        public virtual void BeforeExecution() {}
+        public virtual void AfterExecution() {}
     }
 }

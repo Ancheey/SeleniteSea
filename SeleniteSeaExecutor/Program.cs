@@ -50,7 +50,10 @@ if (args.Length > 0 && File.Exists(args[0]))
 
     try
     {
-        var result = await SSProcess.Execute(block, TypeRegistry.RegisteredTypes.ToDictionary(), ModHandler.LocalDirectory);
+        ExeCore.WorkingDirectory = Path.GetDirectoryName(args[0])??ExeCore.LocalDirectory;
+        foreach (var mod in ModHandler.LoadedMods)
+            mod.BeforeExecution();
+        var result = await SSProcess.Execute(block, TypeRegistry.RegisteredTypes.ToDictionary(), ExeCore.WorkingDirectory);
         if (result.ReturnValue is not null)
             Debug.Log(StatusCode.Success, $"{result.ReturnValue}", null);
     }
@@ -58,7 +61,8 @@ if (args.Length > 0 && File.Exists(args[0]))
     {
         Debug.Log(StatusCode.Error, e.ToString(), null);
     }
-
+    foreach (var mod in ModHandler.LoadedMods)
+        mod.AfterExecution();
     Quit();
     return;
 }

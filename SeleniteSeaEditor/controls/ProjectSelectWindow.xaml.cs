@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using SeleniteSeaEditor.controls.Others;
+using SeleniteSeaExecutor;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -27,9 +28,9 @@ namespace SeleniteSeaEditor.controls
         public ProjectSelectWindow()
         {
             InitializeComponent();
-            if (File.Exists(EditorCore.LocalDirectory + "\\projects.txt"))
+            if (File.Exists(ExeCore.LocalDirectory + "\\projects.txt"))
             {
-                using StreamReader reader = new(EditorCore.LocalDirectory + "\\projects.txt");
+                using StreamReader reader = new(ExeCore.LocalDirectory + "\\projects.txt");
                 string? line;
                 while((line = reader.ReadLine())!= null)
                 {
@@ -79,7 +80,7 @@ namespace SeleniteSeaEditor.controls
         }
         private void Saveconfig()
         {
-            using StreamWriter writer = new(EditorCore.LocalDirectory + "\\projects.txt");
+            using StreamWriter writer = new(ExeCore.LocalDirectory + "\\projects.txt");
             foreach (var item in Projects) 
             {
                 writer.WriteLine(item.path);

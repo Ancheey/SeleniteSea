@@ -20,7 +20,14 @@ namespace SeleniteSeaExecutor
             {
                 lock (data)
                 {
-                    scope.Execute(data);
+                    try
+                    {
+                        scope.Execute(data);
+                    }
+                    catch(Exception ex)
+                    {
+                        Debug.Log(StatusCode.Error, "Critical error! " + ex,null);
+                    }
                 }
             });
             return data;

@@ -8,7 +8,7 @@ using System.Collections.Immutable;
 
 namespace SeleniteSeaExecutor
 {
-    internal static class TypeRegistry
+    public static class TypeRegistry
     {
         private readonly static Dictionary<string, Type> _registeredTypes = [];
         public static ImmutableDictionary<string, Type> RegisteredTypes => _registeredTypes.ToImmutableDictionary();
