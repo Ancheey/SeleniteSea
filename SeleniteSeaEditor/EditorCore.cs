@@ -58,8 +58,14 @@ namespace SeleniteSeaEditor
                 throw new InvalidOperationException("Unregistered action creation");
 
             //Get constructor for the display that takes the block type, default block or default scope as param
-            var dsctor = data.Display.GetConstructor([block.GetType()]) ?? data.Display.GetConstructor([typeof(SSBlock)]) ?? data.Display.GetConstructor([typeof(SSBlockScope)])
-                    ?? throw new InvalidOperationException($"{block.GetType()} display couldn't be instantiated. Missing constructor taking that object type as a parameter.");
+
+            var dsctor = data.Display.GetConstructors()
+            .Where(ci => ci.GetParameters().Length == 1)
+            .FirstOrDefault(ci => ci?.GetParameters().First().ParameterType.IsAssignableFrom(block.GetType()) == true,null)
+            ?? throw new InvalidOperationException($"{block.GetType()} display couldn't be instantiated. Missing constructor taking that object type as a parameter.");
+
+            //data.Display.GetConstructor([block.GetType()]) ?? data.Display.GetConstructor([typeof(SSBlock)]) ?? data.Display.GetConstructor([typeof(SSBlockScope)])
+            //   ?? throw new InvalidOperationException($"{block.GetType()} display couldn't be instantiated. Missing constructor taking that object type as a parameter.");
 
             //Check if the class is in fact a derivant of DisplayBlock
             if (!typeof(DisplayBlock).IsAssignableFrom(data.Display))
@@ -82,8 +88,13 @@ namespace SeleniteSeaEditor
                 //Try get the constructor for the editor that takes the block type as param
                 //throw new Exception($"{data.Editor.GetConstructors()[0].GetParameters()[0].ParameterType} Or {block.GetType()}\n {data.Editor.GetConstructors()[0].GetParameters()[0].ParameterType == block.GetType()}");
 
-                var edctor = data.Editor.GetConstructor([block.GetType()]) ?? data.Editor.GetConstructor([typeof(SSBlockActionBasic)]) ?? data.Editor.GetConstructor([typeof(SSBlockScope)])
-                    ?? throw new InvalidOperationException($"{block.GetType()} editor ({data.Editor}) doesn't contain a constructor allowing that type as a parameter");
+                var edctor = data.Editor.GetConstructors()
+                .Where(ci => ci.GetParameters().Length == 1)
+                .FirstOrDefault(ci => ci?.GetParameters().First().ParameterType.IsAssignableFrom(block.GetType()) == true, null)
+                ?? throw new InvalidOperationException($"{block.GetType()} editor ({data.Editor}) doesn't contain a constructor allowing that type as a parameter");
+
+                //GetConstructor([block.GetType()]) ?? data.Editor.GetConstructor([typeof(SSBlockActionBasic)]) ?? data.Editor.GetConstructor([typeof(SSBlockScope)])
+                //?? throw new InvalidOperationException($"{block.GetType()} editor ({data.Editor}) doesn't contain a constructor allowing that type as a parameter");
                 //check if the editor class is a window
                 if (!typeof(Window).IsAssignableFrom(data.Editor))
                     throw new InvalidOperationException($"{block.GetType()} editor doesn't inherit from a window and can't be opened as a dialog");

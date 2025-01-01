@@ -98,7 +98,7 @@ namespace SeleniteSeaCore
                 if (workpiece == null) //New workpiece
                 {
                     if (!RegisteredBlocks.TryGetValue(line, out Type? blocktype))
-                        throw new InvalidDataException($"Deserialization error: Type {line} at line {fileline} not registered. Available types: {string.Join(", ", RegisteredBlocks.Keys)}");
+                        throw new InvalidDataException($"Deserialization error: Type {line} at line {fileline} not registered. Maybe you're missing a mod?");
                     workpiece = Instantiate(blocktype);
                     CurrentParent?.AddChild(workpiece);
                     int metadataLinesLeft = 0;

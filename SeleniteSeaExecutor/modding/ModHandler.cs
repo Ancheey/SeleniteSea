@@ -53,7 +53,7 @@ namespace SeleniteSeaExecutor.modding
                             }
                         }
                     }
-
+                    
                     var instance = (SeaMod?)Activator.CreateInstance(derivedTypes.First())
                         ?? throw new ArgumentException($"Mod {derivedTypes.First()} from {dll} couldn't be declared. Instance creation failed.");
                     modNameForErrors = instance.Name;
