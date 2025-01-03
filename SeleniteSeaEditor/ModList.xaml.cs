@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SeleniteSeaEditor.modding;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +23,7 @@ namespace SeleniteSeaEditor
         public ModList()
         {
             InitializeComponent();
-            foreach (var item in EditorCore.LoadedMods)
+            foreach (var item in ModHandler.LoadedMods)
                 ModListBox.Items.Add(item);
         }
     }

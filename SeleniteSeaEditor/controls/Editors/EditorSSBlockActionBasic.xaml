@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Background="#232133"
         ResizeMode="CanResizeWithGrip"
-        Title="EditorSSBlockActionBasic" Height="400" Width="300">
+        Title="Block Editor" Height="400" Width="300">
     <DockPanel Margin="10">
         <Label x:Name="ItemName" Content="ItemName" DockPanel.Dock="Top" FontWeight="Bold" Foreground="LightGray" BorderThickness="0,0,0,0.3" BorderBrush="Black"/>
         <TextBlock x:Name="ItemDescription" Foreground="LightGray" Margin="5,0,5,5" Text="lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum" TextWrapping="Wrap" DockPanel.Dock="Top"/>

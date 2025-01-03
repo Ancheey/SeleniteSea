@@ -5,7 +5,12 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <ApplicationIcon>SSico.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="SSico.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SeleniteSeaCore\SeleniteSeaCore.csproj" />

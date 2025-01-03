@@ -4,6 +4,7 @@ using SeleniteSeaCore.codeblocks;
 using SeleniteSeaCore.variables;
 using SeleniteSeaEditor.controls;
 using SeleniteSeaEditor.controls.Displays;
+using SeleniteSeaEditor.modding;
 using SeleniteSeaExecutor;
 using System.IO;
 using System.Text;
@@ -43,8 +44,8 @@ namespace SeleniteSeaEditor
                 });
             };
 
-            EditorCore.LoadMods();
-            if (EditorCore.LoadedMods.Count == 0)
+            ModHandler.LoadMods();
+            if (ModHandler.LoadedMods.Count == 0)
                 ModLister.Visibility = Visibility.Collapsed;
 
 
@@ -165,7 +166,7 @@ namespace SeleniteSeaEditor
         {
             try
             {
-                foreach (var mod in EditorCore.LoadedMods)
+                foreach (var mod in ModHandler.LoadedMods)
                     mod.BeforeExecution();
                 var result = await SSProcess.Execute(s, EditorRegistry.RegisteredTypes.ToDictionary(), ExeCore.WorkingDirectory);
                 if (result.ReturnValue is not null)
@@ -178,7 +179,7 @@ namespace SeleniteSeaEditor
                 Debug.Log(StatusCode.Error, e.ToString(), null);
             }
             Dispatcher.Invoke(() => { RunButton.IsEnabled = true; HaltButton.IsEnabled = false; });
-            foreach (var mod in EditorCore.LoadedMods)
+            foreach (var mod in ModHandler.LoadedMods)
             {
                 try
                 {

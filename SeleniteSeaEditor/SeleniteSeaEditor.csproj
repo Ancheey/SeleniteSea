@@ -6,11 +6,16 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>SSico.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="output.jpg" />
     <None Remove="SSico.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="SSico.ico" />
   </ItemGroup>
 
   <ItemGroup>

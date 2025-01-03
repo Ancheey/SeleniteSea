@@ -3,6 +3,7 @@ using SeleniteSeaCore.codeblocks.actions;
 using SeleniteSeaCore.codeblocks.scopes;
 using SeleniteSeaEditor.controls.Displays;
 using SeleniteSeaEditor.controls.Editors;
+using SeleniteSeaEditor.modding;
 using System.Collections.Immutable;
 
 namespace SeleniteSeaEditor
@@ -54,7 +55,7 @@ namespace SeleniteSeaEditor
             RegisterAction<SSBlockActionExecuteFunction> (new("Call Function", "Calls a designated function and saves the return value", typeof(DisplaySSBlock), typeof(EditorSSBlockActionExecuteFunction)));
 
 
-            foreach(var mod in EditorCore.LoadedMods)
+            foreach(var mod in ModHandler.LoadedMods)
             {
                 mod.OnRegisterActions();
             }
