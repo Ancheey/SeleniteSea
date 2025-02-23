@@ -21,8 +21,8 @@ namespace SeleniteSeaEditor.modding
             string depdir = @$"{ExeCore.LocalDirectory}dependencies";
             if (!Directory.Exists(moddir))
                 Directory.CreateDirectory(moddir);
-            if (!Directory.Exists(moddir))
-                Directory.CreateDirectory(moddir);
+            if (!Directory.Exists(depdir))
+                Directory.CreateDirectory(depdir);
             //loading assemblies
 
             var dlls = Directory.GetFiles(moddir, "*.dll");

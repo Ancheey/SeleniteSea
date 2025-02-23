@@ -1,17 +1,11 @@
-﻿using SeleniteSeaCore.variables;
-using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Immutable;
 
 namespace SeleniteSeaCore.codeblocks
 {
     public abstract class SSBlockScope : SSBlock
     {
 
-        private List<SSBlock> children = [];
+        private readonly List<SSBlock> children = [];
         public ImmutableList<SSBlock> Children => [.. children];
         private bool _done = false;
         public override bool Done

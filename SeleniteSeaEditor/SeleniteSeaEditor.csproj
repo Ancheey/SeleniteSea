@@ -15,7 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="SSico.ico" />
+    <Content Include="SSico.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

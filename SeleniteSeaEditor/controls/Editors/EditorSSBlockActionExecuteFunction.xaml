@@ -10,7 +10,7 @@
     <DockPanel Margin="10">
         <StackPanel DockPanel.Dock="Top">
             <Label Content="Function" DockPanel.Dock="Top" Foreground="LightGray"/>
-            <ComboBox x:Name="FunctionName" Background="#181924" Foreground="LightGray" SelectionChanged="FunctionName_SelectionChanged" IsEditable="True"/>
+            <ComboBox x:Name="FunctionName" Background="#181924" SelectionChanged="FunctionName_SelectionChanged" IsEditable="True"/>
         </StackPanel>
         <Button DockPanel.Dock="Bottom" Content="Accept" Background="#232133" Foreground="LightGray" BorderBrush="Black" Margin="0,5,0,0" HorizontalAlignment="Left" Padding="2" Click="Button_Click"/>
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">

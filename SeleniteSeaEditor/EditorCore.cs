@@ -64,9 +64,6 @@ namespace SeleniteSeaEditor
             .FirstOrDefault(ci => ci?.GetParameters().First().ParameterType.IsAssignableFrom(block.GetType()) == true,null)
             ?? throw new InvalidOperationException($"{block.GetType()} display couldn't be instantiated. Missing constructor taking that object type as a parameter.");
 
-            //data.Display.GetConstructor([block.GetType()]) ?? data.Display.GetConstructor([typeof(SSBlock)]) ?? data.Display.GetConstructor([typeof(SSBlockScope)])
-            //   ?? throw new InvalidOperationException($"{block.GetType()} display couldn't be instantiated. Missing constructor taking that object type as a parameter.");
-
             //Check if the class is in fact a derivant of DisplayBlock
             if (!typeof(DisplayBlock).IsAssignableFrom(data.Display))
                 throw new InvalidOperationException($"{block.GetType()} display block be instantiated. It does not inherit the DisplayBlock class");
